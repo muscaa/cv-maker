@@ -1,0 +1,7 @@
+body {
+    @apply bg-background-1 text-text-1 h4 font-medium;
+}
+
+div {
+    scroll-behavior: smooth;
+}
