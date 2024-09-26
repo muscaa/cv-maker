@@ -3,21 +3,32 @@
 import { useState } from "react";
 import Button from "./components/Button";
 import jsPDF from "jspdf";
+import * as Utils from "./Utils";
+
+async function installFont(pdf: jsPDF, fontName: string, fontUrl: string) {
+    const response = await fetch("https://raw.githubusercontent.com/muscaa/cv-maker-resources/refs/heads/main/fonts/" + fontUrl);
+    const buffer = await response.arrayBuffer();
+    const base64font = Utils.base64ArrayBuffer(buffer);
+
+    pdf.addFileToVFS(fontName + ".ttf", base64font);
+    pdf.addFont(fontName + ".ttf", fontName, "normal");
+}
 
 export default function Home() {
     const [pdfUrl, setPdfUrl] = useState<string | null>(null);
 
     const generatePDF = async () => {
         const pdf = new jsPDF();
+
+        await installFont(pdf, "Lato-Regular", "lato/Lato-Regular.ttf");
+        await installFont(pdf, "Satisfy-Regular", "satisfy/Satisfy-Regular.ttf");
+
+        pdf.setFontSize(32);
+
         pdf.text("Curriculum Vitae", 10, 10);
-        pdf.text("Name: John Doe", 10, 20);
-        pdf.text("Position: Frontend Developer", 10, 30);
 
-        pdf.setDrawColor(255, 0, 255);
-        pdf.setLineWidth(0.5);
-        pdf.line(10, 40, 200, 40);
-
-        pdf.textWithLink("Click here", 10, 50, { url: "https://www.google.com" });
+        pdf.setFont("Satisfy-Regular");
+        pdf.text("Curriculum Vitae", 10, 20);
 
         console.log(pdf.getFontList());
 

@@ -6,7 +6,7 @@ import "./styles/main.css";
 const font = Montserrat({ subsets: [ "latin" ] });
 
 export const metadata: Metadata = {
-    title: "CV Maker",
+    title: "Free CV Maker",
     description: "Built by muscaa",
 };
 
