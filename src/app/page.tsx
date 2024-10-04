@@ -14,6 +14,27 @@ async function installFont(pdf: jsPDF, fontName: string, fontUrl: string) {
     pdf.addFont(fontName + ".ttf", fontName, "normal");
 }
 
+async function loadFile() {
+    return new Promise<string>((resolve, reject) => {
+        const input = document.createElement('input');
+        input.type = 'file';
+        input.onchange = (e) => {
+            const target = e.target as HTMLInputElement;
+            if (!target.files) return;
+    
+            const file = target.files[0];
+            const reader = new FileReader();
+            reader.readAsText(file,'UTF-8');
+            reader.onload = (readerEvent) => {
+                const target = readerEvent.target as FileReader;
+                
+                resolve(target.result as string);
+            }
+        }
+        input.click();
+    });
+}
+
 export default function Home() {
     const [pdfUrl, setPdfUrl] = useState<string | null>(null);
 
@@ -27,8 +48,13 @@ export default function Home() {
 
         pdf.text("Curriculum Vitae", 10, 10);
 
-        pdf.setFont("Satisfy-Regular");
-        pdf.text("Curriculum Vitae", 10, 20);
+        const content = await loadFile();
+
+        console.log(content);
+        eval(content);
+
+        //pdf.setFont("Satisfy-Regular");
+        //pdf.text("Curriculum Vitae", 10, 20);
 
         console.log(pdf.getFontList());
 
