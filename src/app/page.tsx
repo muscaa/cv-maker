@@ -28,7 +28,11 @@ async function loadFile() {
             reader.onload = (readerEvent) => {
                 const target = readerEvent.target as FileReader;
                 
-                resolve(target.result as string);
+                if (target.result) {
+                    resolve(target.result as string);
+                } else {
+                    reject("Error reading file");
+                }
             }
         }
         input.click();
