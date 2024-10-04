@@ -6,7 +6,16 @@ import Button from "./components/Button";
 //import * as Utils from "./Utils";
 
 import React from "react";
-import { PDFViewer, Page, Text, View, Document, StyleSheet } from "@react-pdf/renderer";
+import { Page, Text, View, Document, StyleSheet } from "@react-pdf/renderer";
+import dynamic from "next/dynamic";
+
+const PDFViewer = dynamic(
+    () => import("@react-pdf/renderer").then((mod) => mod.PDFViewer),
+    {
+        ssr: false,
+        loading: () => <p>Loading...</p>,
+    },
+);
 
 /*async function installFont(pdf: jsPDF, fontName: string, fontUrl: string) {
     const response = await fetch("https://raw.githubusercontent.com/muscaa/cv-maker-resources/refs/heads/main/fonts/" + fontUrl);
