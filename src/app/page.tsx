@@ -5,7 +5,10 @@ import Button from "./components/Button";
 import jsPDF from "jspdf";
 import * as Utils from "./Utils";
 
-async function installFont(pdf: jsPDF, fontName: string, fontUrl: string) {
+import React from "react";
+import { PDFViewer, Page, Text, View, Document, StyleSheet } from "@react-pdf/renderer";
+
+/*async function installFont(pdf: jsPDF, fontName: string, fontUrl: string) {
     const response = await fetch("https://raw.githubusercontent.com/muscaa/cv-maker-resources/refs/heads/main/fonts/" + fontUrl);
     const buffer = await response.arrayBuffer();
     const base64font = Utils.base64ArrayBuffer(buffer);
@@ -16,15 +19,15 @@ async function installFont(pdf: jsPDF, fontName: string, fontUrl: string) {
 
 async function loadFile() {
     return new Promise<string>((resolve, reject) => {
-        const input = document.createElement('input');
-        input.type = 'file';
+        const input = document.createElement("input");
+        input.type = "file";
         input.onchange = (e) => {
             const target = e.target as HTMLInputElement;
             if (!target.files) return;
     
             const file = target.files[0];
             const reader = new FileReader();
-            reader.readAsText(file,'UTF-8');
+            reader.readAsText(file, "UTF-8");
             reader.onload = (readerEvent) => {
                 const target = readerEvent.target as FileReader;
                 
@@ -37,9 +40,45 @@ async function loadFile() {
         }
         input.click();
     });
-}
+}*/
+
+const styles = StyleSheet.create({
+    page: {
+        flexDirection: 'row',
+    },
+    section: {
+        margin: 10,
+        padding: 10,
+        flexGrow: 1,
+    }
+});
 
 export default function Home() {
+    return (
+        <div className="p-5 flex w-screen h-screen">
+            <div className="w-full h-full">
+                <Button text="Generate Preview" />
+            </div>
+
+            <div className="w-full h-full">
+                <PDFViewer className="w-full h-full">
+                    <Document>
+                        <Page size="A4" style={styles.page}>
+                            <View style={styles.section}>
+                                <Text>Section 1</Text>
+                            </View>
+                            <View style={styles.section}>
+                                <Text>Section 2</Text>
+                            </View>
+                        </Page>
+                    </Document>
+                </PDFViewer>
+            </div>
+        </div>
+    );
+}
+
+/*
     const [pdfUrl, setPdfUrl] = useState<string | null>(null);
 
     const generatePDF = async () => {
@@ -48,8 +87,8 @@ export default function Home() {
         await installFont(pdf, "Lato-Regular", "lato/Lato-Regular.ttf");
         await installFont(pdf, "Satisfy-Regular", "satisfy/Satisfy-Regular.ttf");
 
-        pdf.setFontSize(32);
-
+        pdf.setFontSize(10);
+        pdf.text("Curriculum Vitae", 10, 5);
         pdf.text("Curriculum Vitae", 10, 10);
 
         const content = await loadFile();
@@ -78,4 +117,4 @@ export default function Home() {
             </div>
         </div>
     );
-}
+*/
