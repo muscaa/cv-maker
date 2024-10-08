@@ -1,37 +1,29 @@
 "use client";
 
-import React from "react";
 import { useState, useEffect } from "react";
-import Button from "./components/Button";
-import { CVMakerImpl } from "@/api/CVMakerImpl";
-import * as Utils from "./Utils";
+import { cvmaker, cvmakeroptions } from "@/api/CVMakerImpl";
+import CVMakerSection from "./sections/CVMakerSection";
 
 export default function Home() {
     const [pdfUrl, setPDFUrl] = useState<string | null>(null);
     
     useEffect(() => {
-        window.cvmaker = new CVMakerImpl(
-            setPDFUrl
-        );
+        window.cvmaker = cvmaker;
     }, []);
 
-    return (
-        <div className="p-5 flex gap-2 w-screen h-screen">
-            <div className="w-full h-full flex flex-col gap-2">
-                <Button text="Generate Preview" />
-                <Button text="Load File" onClick={async () => {
-                    const file = await Utils.loadFile(".zip");
-                    const unzipped = await Utils.readZip(file);
-                    const template = await unzipped.file("template.js")?.async("string");
-                    const script = await Utils.addScript({ text: template });
+    cvmakeroptions.setPDFUrl = setPDFUrl;
 
-                    console.log(script);
-                }} />
+    return (
+        <div className="p-10 grid grid-cols-2 gap-10 w-screen h-screen">
+            <div className="grid bg-black">
+                <CVMakerSection />
             </div>
 
-            <div className="w-full h-full">
+            <div className="grid">
                 {pdfUrl && (
                     <iframe src={pdfUrl} className="w-full h-full" />
+                ) || (
+                    <div className="bg-black"></div>
                 )}
             </div>
         </div>
