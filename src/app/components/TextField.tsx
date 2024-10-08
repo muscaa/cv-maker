@@ -7,18 +7,18 @@ export interface TextFieldProps {
     onChange?: React.ChangeEventHandler<HTMLInputElement>;
 }
 
-export default function TextField(options: TextFieldProps) {
+export default function TextField(props: TextFieldProps) {
     return (
         <input
-            id={options.id}
-            type={options.type}
-            name={options.name}
-            placeholder={options.placeholder}
+            id={props.id}
+            type={props.type}
+            name={props.name}
+            placeholder={props.placeholder}
             className={`appearance-none placeholder-text-2 outline-none p-3
-                bg-background-4 bg-opacity-25 backdrop-blur-sm rounded-md
+                bg-background-4 bg-opacity-25 rounded-md
                 border border-background-4 border-opacity-25 w-full
-                ${options.className}`}
-            onChange={options.onChange}
+                ${props.className}`}
+            onChange={props.onChange}
         />
     );
 }

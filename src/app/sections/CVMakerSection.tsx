@@ -6,6 +6,7 @@ import Text from "../components/Text";
 import TextField from "../components/TextField";
 import TextArea from "../components/TextArea";
 import Empty from "../components/Empty";
+import CheckBoxButton from "../components/CheckBoxButton";
 
 export default function CVMakerSection() {
     return (
@@ -26,6 +27,12 @@ export default function CVMakerSection() {
                 <Button text="yes"/>
             </Layout.Rows>
             <TextArea placeholder="text area" />
+            <Layout.Rows>
+                <Text text="check box" />
+                <Empty />
+                <CheckBoxButton />
+                <Empty />
+            </Layout.Rows>
         </section>
     );
 }
