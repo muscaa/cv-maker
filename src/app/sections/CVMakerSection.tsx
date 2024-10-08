@@ -1,8 +1,18 @@
 import * as Utils from "../Utils";
 import Button from "../components/Button";
 
+function button(name: string): React.ReactElement {
+    return (
+        <Button text={name} />
+    );
+}
+
 export default function CVMakerSection() {
-    const buttons = [ "Test 1", "Test 2", "Test 3" ];
+    const components = [
+        button("hello"),
+        button("world"),
+    ];
+
     return (
         <section className="flex flex-col gap-2">
             <Button text="Load Template Zip" onClick={async () => {
@@ -13,8 +23,8 @@ export default function CVMakerSection() {
 
                 console.log(script);
             }} />
-            {buttons.map((text, index) => (
-                <Button key={index} text={text} />
+            {components.map((component, index) => (
+                <div key={index}>{component}</div>
             ))}
         </section>
     );
