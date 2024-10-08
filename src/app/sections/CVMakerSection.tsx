@@ -1,18 +1,13 @@
 import * as Utils from "../Utils";
+import * as Layout from "../components/Layout";
 import Button from "../components/Button";
-
-function button(name: string): React.ReactElement {
-    return (
-        <Button text={name} />
-    );
-}
+import Title from "../components/Title";
+import Text from "../components/Text";
+import TextField from "../components/TextField";
+import TextArea from "../components/TextArea";
+import Empty from "../components/Empty";
 
 export default function CVMakerSection() {
-    const components = [
-        button("hello"),
-        button("world"),
-    ];
-
     return (
         <section className="flex flex-col gap-2">
             <Button text="Load Template Zip" onClick={async () => {
@@ -23,9 +18,14 @@ export default function CVMakerSection() {
 
                 console.log(script);
             }} />
-            {components.map((component, index) => (
-                <div key={index}>{component}</div>
-            ))}
+            <Title text="CV Maker" />
+            <Layout.Rows>
+                <Text text="hello world" />
+                <Empty />
+                <TextField placeholder="hello world" />
+                <Button text="yes"/>
+            </Layout.Rows>
+            <TextArea placeholder="text area" />
         </section>
     );
 }

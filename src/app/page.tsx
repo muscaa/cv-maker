@@ -15,7 +15,7 @@ export default function Home() {
 
     return (
         <div className="p-10 grid grid-cols-2 gap-10 w-screen h-screen">
-            <div className="grid bg-black">
+            <div className="grid">
                 <CVMakerSection />
             </div>
 
