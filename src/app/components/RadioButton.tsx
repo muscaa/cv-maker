@@ -10,7 +10,7 @@ export default function RadioButton(props: RadioButtonProps) {
             <input
                 type="radio"
                 className="
-                    appearance-none peer w-5 h-5 cursor-pointer rounded-full
+                    appearance-none outline-none peer w-5 h-5 cursor-pointer rounded-full
                     border border-primary
                 "
                 name={props.name}

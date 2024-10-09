@@ -14,8 +14,8 @@ export default function Home() {
     cvmakeroptions.setPDFUrl = setPDFUrl;
 
     return (
-        <div className="p-10 grid grid-cols-2 gap-10 w-screen h-screen">
-            <div className="grid">
+        <div className="p-10 grid grid-cols-2 gap-10 w-screen h-screen max-h-screen">
+            <div className="grid h-full max-h-full overflow-auto">
                 <CVMakerSection />
             </div>
 

@@ -29,7 +29,7 @@ export default function Slider(props: SliderProps) {
                     ref={ref}
                     type="range"
                     className="
-                        absolute appearance-none w-full h-2 rounded-full cursor-pointer
+                        appearance-none outline-none absolute w-full h-2 rounded-full cursor-pointer
                         bg-transparent component-slider
                     "
                     style={{

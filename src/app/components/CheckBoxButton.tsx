@@ -9,7 +9,7 @@ export default function CheckBoxButton(props: CheckBoxButtonProps) {
             <input
                 type="checkbox"
                 className="
-                    appearance-none peer w-5 h-5 cursor-pointer rounded-md
+                    appearance-none outline-none peer w-5 h-5 cursor-pointer rounded-md
                     border border-primary checked:bg-primary
                     transition-colors duration-200 ease-in-out
                 "

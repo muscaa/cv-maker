@@ -14,9 +14,9 @@ export default function InputField(props: InputFieldProps) {
             type={props.type}
             name={props.name}
             placeholder={props.placeholder}
-            className={`appearance-none placeholder-text-2 outline-none p-3
+            className={`appearance-none outline-none w-full p-3 placeholder-text-2
                 bg-background-4 bg-opacity-25 rounded-md
-                border border-background-4 border-opacity-25 w-full
+                border border-background-4 border-opacity-25
                 ${props.className}`}
             onChange={props.onChange}
         />

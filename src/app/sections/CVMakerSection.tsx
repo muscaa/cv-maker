@@ -9,6 +9,7 @@ import Empty from "../components/Empty";
 import CheckBoxButton from "../components/CheckBoxButton";
 import RadioButton from "../components/RadioButton";
 import Slider from "../components/Slider";
+import Dropdown from "../components/Dropdown";
 
 export default function CVMakerSection() {
     return (
@@ -45,6 +46,11 @@ export default function CVMakerSection() {
                 </Layout.Rows>
             </Layout.Cols>
             <Slider min={5} max={999999} value={5} />
+            <Layout.Rows>
+                <Text text="dropdown" />
+                <Empty />
+                <Dropdown options={[ "hello", "world" ]} selected={-1} />
+            </Layout.Rows>
         </section>
     );
 }
