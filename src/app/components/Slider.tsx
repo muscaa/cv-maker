@@ -16,7 +16,7 @@ export default function Slider(props: SliderProps) {
     const ref = useRef<HTMLInputElement>(null);
 
     return (
-        <div className="flex p-4 gap-4 w-full">
+        <div className="flex p-[1.375rem] w-full">
             <div className="flex w-full justify-center items-center relative">
                 <div
                     className="
