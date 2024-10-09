@@ -7,6 +7,7 @@ import {
 export interface DropdownProps {
     options: string[];
     selected: number;
+    onSelect?: (option: string, index: number) => void;
 }
 
 export default function Dropdown(props: DropdownProps) {
@@ -16,8 +17,9 @@ export default function Dropdown(props: DropdownProps) {
 
     const handleSelect = (option: string, index: number) => {
         setCurrentValue(option);
-        //onSelect(option, index);
         setIsOpen(false);
+
+        props.onSelect?.(option, index);
     };
 
     useEffect(() => {
