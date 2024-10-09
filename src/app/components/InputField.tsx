@@ -1,4 +1,4 @@
-export interface TextFieldProps {
+export interface InputFieldProps {
     id?: string;
     type?: string;
     name?: string;
@@ -7,7 +7,7 @@ export interface TextFieldProps {
     onChange?: React.ChangeEventHandler<HTMLInputElement>;
 }
 
-export default function TextField(props: TextFieldProps) {
+export default function InputField(props: InputFieldProps) {
     return (
         <input
             id={props.id}

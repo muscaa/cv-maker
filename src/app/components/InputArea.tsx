@@ -1,4 +1,4 @@
-export interface TextAreaProps {
+export interface InputAreaProps {
     id?: string;
     name?: string;
     placeholder?: string;
@@ -6,7 +6,7 @@ export interface TextAreaProps {
     onChange?: React.ChangeEventHandler<HTMLTextAreaElement>;
 }
 
-export default function TextArea(props: TextAreaProps) {
+export default function InputArea(props: InputAreaProps) {
     return (
         <textarea
             id={props.id}

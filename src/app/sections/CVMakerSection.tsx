@@ -3,8 +3,8 @@ import * as Layout from "../components/Layout";
 import Button from "../components/Button";
 import Title from "../components/Title";
 import Text from "../components/Text";
-import TextField from "../components/TextField";
-import TextArea from "../components/TextArea";
+import InputField from "../components/InputField";
+import InputArea from "../components/InputArea";
 import Empty from "../components/Empty";
 import CheckBoxButton from "../components/CheckBoxButton";
 import RadioButton from "../components/RadioButton";
@@ -25,10 +25,10 @@ export default function CVMakerSection() {
             <Layout.Rows>
                 <Text text="hello world" />
                 <Empty />
-                <TextField placeholder="hello world" />
+                <InputField placeholder="hello world" />
                 <Button text="yes"/>
             </Layout.Rows>
-            <TextArea placeholder="text area" />
+            <InputArea placeholder="text area" />
             <Layout.Rows>
                 <Text text="check box & slider" />
                 <CheckBoxButton />
