@@ -29,12 +29,10 @@ export default function CVMakerSection() {
                 <Button text="yes"/>
             </Layout.Rows>
             <TextArea placeholder="text area" />
-            <Slider min={0} max={10} step={1} />
             <Layout.Rows>
-                <Text text="check box" />
-                <Empty />
+                <Text text="check box & slider" />
                 <CheckBoxButton />
-                <Empty />
+                <Slider min={0} max={10} value={9} step={1} />
             </Layout.Rows>
             <Layout.Cols>
                 <Layout.Rows>
@@ -46,7 +44,7 @@ export default function CVMakerSection() {
                     <Text text="radio button 2" />
                 </Layout.Rows>
             </Layout.Cols>
-            <Slider min={0} max={10} step={1} />
+            <Slider min={5} max={999999} value={5} />
         </section>
     );
 }

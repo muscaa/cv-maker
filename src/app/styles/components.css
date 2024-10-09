@@ -1,0 +1,13 @@
+@layer components {
+    .component-slider::-webkit-slider-thumb {
+        @apply theme-slider-thumb;
+    }
+
+    .component-slider::-moz-range-thumb {
+        @apply theme-slider-thumb;
+    }
+
+    .component-slider::-ms-thumb {
+        @apply theme-slider-thumb;
+    }
+}

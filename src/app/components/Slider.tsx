@@ -1,27 +1,53 @@
+import { useRef } from "react";
+
 export interface SliderProps {
-    min?: number;
-    max?: number;
-    defaultValue?: number;
+    min: number;
+    max: number;
+    value: number;
     step?: number;
 }
 
-export default function Slider(props: SliderProps) {
-    return (
-        <input
-            type="range"
-            className="
-                appearance-none w-full h-2 cursor-pointer rounded-full
-                bg-background-4 bg-opacity-25
-                border border-background-4 border-opacity-25
+function calcSliderBackground(props: SliderProps, value: number) {
+    const progress = ((value - props.min) / (props.max - props.min)) * 100;
+    return `linear-gradient(to right, var(--primary-dark) ${progress}%, transparent ${progress}%)`;
+}
 
-                [&::-moz-range-thumb]:appearance-none [&::-ms-thumb]:appearance-none [&::-webkit-slider-thumb]:appearance-none
-                [&::-moz-range-thumb]:bg-primary [&::-ms-thumb]:bg-primary [&::-webkit-slider-thumb]:bg-primary
-                [&::-moz-range-thumb]:border-none [&::-ms-thumb]:border-none [&::-webkit-slider-thumb]:border-none
-            "
-            min={props.min}
-            max={props.max}
-            defaultValue={props.defaultValue}
-            step={props.step}
-        />
+export default function Slider(props: SliderProps) {
+    const ref = useRef<HTMLInputElement>(null);
+
+    return (
+        <div className="flex p-4 gap-4 w-full">
+            <div className="flex w-full justify-center items-center relative">
+                <div
+                    className="
+                        w-full h-2 rounded-full
+                        bg-background-4 bg-opacity-25
+                    "
+                >
+                </div>
+                <input
+                    ref={ref}
+                    type="range"
+                    className="
+                        absolute appearance-none w-full h-2 rounded-full cursor-pointer
+                        bg-transparent component-slider
+                    "
+                    style={{
+                        background: calcSliderBackground(props, props.value),
+                    }}
+                    min={props.min}
+                    max={props.max}
+                    defaultValue={props.value}
+                    step={props.step}
+                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                        const value = Number(event.target.value);
+
+                        if (ref.current) {
+                            ref.current.style.background = calcSliderBackground(props, value);
+                        }
+                    }}
+                />
+            </div>
+        </div>
     );
 }
