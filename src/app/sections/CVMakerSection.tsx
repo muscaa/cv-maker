@@ -8,6 +8,7 @@ import TextArea from "../components/TextArea";
 import Empty from "../components/Empty";
 import CheckBoxButton from "../components/CheckBoxButton";
 import RadioButton from "../components/RadioButton";
+import Slider from "../components/Slider";
 
 export default function CVMakerSection() {
     return (
@@ -20,7 +21,7 @@ export default function CVMakerSection() {
 
                 console.log(script);
             }} />
-            <Title text="CV Maker" />
+            <Title text="Hello World" />
             <Layout.Rows>
                 <Text text="hello world" />
                 <Empty />
@@ -28,6 +29,7 @@ export default function CVMakerSection() {
                 <Button text="yes"/>
             </Layout.Rows>
             <TextArea placeholder="text area" />
+            <Slider min={0} max={10} step={1} />
             <Layout.Rows>
                 <Text text="check box" />
                 <Empty />
@@ -44,6 +46,7 @@ export default function CVMakerSection() {
                     <Text text="radio button 2" />
                 </Layout.Rows>
             </Layout.Cols>
+            <Slider min={0} max={10} step={1} />
         </section>
     );
 }
