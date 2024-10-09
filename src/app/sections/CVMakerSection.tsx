@@ -7,6 +7,7 @@ import TextField from "../components/TextField";
 import TextArea from "../components/TextArea";
 import Empty from "../components/Empty";
 import CheckBoxButton from "../components/CheckBoxButton";
+import RadioButton from "../components/RadioButton";
 
 export default function CVMakerSection() {
     return (
@@ -33,6 +34,16 @@ export default function CVMakerSection() {
                 <CheckBoxButton />
                 <Empty />
             </Layout.Rows>
+            <Layout.Cols>
+                <Layout.Rows>
+                    <RadioButton name="hello" />
+                    <Text text="radio button 1" />
+                </Layout.Rows>
+                <Layout.Rows>
+                    <RadioButton name="hello" />
+                    <Text text="radio button 2" />
+                </Layout.Rows>
+            </Layout.Cols>
         </section>
     );
 }
