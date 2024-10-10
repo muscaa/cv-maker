@@ -9,8 +9,10 @@ export default function CheckBoxButton(props: CheckBoxButtonProps) {
             <input
                 type="checkbox"
                 className="
-                    appearance-none outline-none peer w-5 h-5 cursor-pointer rounded-md
-                    border border-primary checked:bg-primary
+                    appearance-none outline-none peer w-5 h-5 cursor-pointer
+                    bg-background-4 bg-opacity-25 rounded-md
+                    border border-background-4 border-opacity-25
+                    checked:bg-primary checked:border-primary
                     transition-colors duration-200 ease-in-out
                 "
                 checked={props.checked}
@@ -18,8 +20,9 @@ export default function CheckBoxButton(props: CheckBoxButtonProps) {
             />
             <div
                 className="
-                    absolute text-text-1 opacity-0 peer-checked:opacity-100 pointer-events-none
-                    transition-opacity duration-200 ease-in-out
+                    absolute pointer-events-none
+                    text-text-1 opacity-0 scale-0 peer-checked:opacity-100 peer-checked:scale-100
+                    transition-all duration-200 ease-in-out
                 "
             >
                 <svg

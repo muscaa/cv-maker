@@ -4,6 +4,8 @@ body {
 
 div {
     scroll-behavior: smooth;
+    scrollbar-color: var(--background-3) transparent;
+    scrollbar-width: auto;
 }
 
 h1 {
