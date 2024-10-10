@@ -1,41 +1,59 @@
 export interface LayoutProps {
     children: React.ReactNode;
+    alignX?: "left" | "center" | "right";
+    alignY?: "top" | "center" | "bottom";
 }
 
-export interface FlexProps extends LayoutProps {
+const alignXs = {
+    left: "justify-start",
+    center: "justify-center",
+    right: "justify-end",
+};
+const alignYs = {
+    top: "items-start",
+    center: "items-center",
+    bottom: "items-end",
+};
 
-}
+export function Min(props: LayoutProps) {
+    const alignX = props.alignX ? alignXs[props.alignX] : "";
+    const alignY = props.alignY ? alignYs[props.alignY] : "";
 
-export function Rows(props: FlexProps) {
     return (
-        <div className="flex flex-row gap-2">
+        <div className={`flex gap-2 ${alignX} ${alignY}`}>
             {props.children}
         </div>
     );
 }
 
-export function Cols(props: FlexProps) {
+export function Max(props: LayoutProps) {
+    const alignX = props.alignX ? alignXs[props.alignX] : "";
+    const alignY = props.alignY ? alignYs[props.alignY] : "";
+
     return (
-        <div className="flex flex-col gap-2">
+        <div className={`flex size-full gap-2 ${alignX} ${alignY}`}>
             {props.children}
         </div>
     );
 }
 
-export interface GridProps extends LayoutProps {
-    rows: number;
-    cols: number;
+export function Rows(props: LayoutProps) {
+    const alignX = props.alignX ? alignXs[props.alignX] : "";
+    const alignY = props.alignY ? alignYs[props.alignY] : "";
+
+    return (
+        <div className={`flex flex-row size-full gap-2 ${alignX} ${alignY}`}>
+            {props.children}
+        </div>
+    );
 }
 
-export function Grid(props: GridProps) {
+export function Cols(props: LayoutProps) {
+    const alignX = props.alignX ? alignXs[props.alignX] : "";
+    const alignY = props.alignY ? alignYs[props.alignY] : "";
+
     return (
-        <div
-            className="grid gap-2"
-            style={{
-                gridTemplateRows: `repeat(${props.rows}, minmax(0, 1fr))`,
-                gridTemplateColumns: `repeat(${props.cols}, minmax(0, 1fr))`
-            }}
-        >
+        <div className={`flex flex-col size-full gap-2 ${alignX} ${alignY}`}>
             {props.children}
         </div>
     );

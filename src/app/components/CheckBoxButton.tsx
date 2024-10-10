@@ -1,11 +1,11 @@
 export interface CheckBoxButtonProps {
     checked?: boolean;
-    onChange?: React.ChangeEventHandler<HTMLInputElement>;
+    onAction?: (checked: boolean) => void;
 }
 
 export default function CheckBoxButton(props: CheckBoxButtonProps) {
     return (
-        <div className="flex p-4 w-full justify-center items-center relative">
+        <div className="flex relative size-full">
             <input
                 type="checkbox"
                 className="
@@ -16,13 +16,14 @@ export default function CheckBoxButton(props: CheckBoxButtonProps) {
                     transition-colors duration-200 ease-in-out
                 "
                 checked={props.checked}
-                onChange={props.onChange}
+                onChange={(event) => props.onAction?.(event.target.checked)}
             />
             <div
                 className="
-                    absolute pointer-events-none
+                    absolute w-5 h-5 pointer-events-none
                     text-text-1 opacity-0 scale-0 peer-checked:opacity-100 peer-checked:scale-100
                     transition-all duration-200 ease-in-out
+                    flex justify-center items-center
                 "
             >
                 <svg

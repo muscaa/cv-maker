@@ -7,7 +7,7 @@ import {
 export interface DropdownProps {
     options: string[];
     selected: number;
-    onSelect?: (option: string, index: number) => void;
+    onAction?: (option: string, index: number) => void;
 }
 
 export default function Dropdown(props: DropdownProps) {
@@ -19,7 +19,7 @@ export default function Dropdown(props: DropdownProps) {
         setCurrentValue(option);
         setIsOpen(false);
 
-        props.onSelect?.(option, index);
+        props.onAction?.(option, index);
     };
 
     useEffect(() => {
@@ -34,16 +34,16 @@ export default function Dropdown(props: DropdownProps) {
     }, []);
 
     return (
-        <div ref={ref} className="w-full relative">
+        <div ref={ref} className="relative size-full">
             <button
                 type="button"
-                onClick={() => setIsOpen(!isOpen)}
                 className="
                     appearance-none outline-none w-full p-3
                     flex items-center justify-between
                     bg-background-4 bg-opacity-25 rounded-md
                     border border-background-4 border-opacity-25
                 "
+                onClick={() => setIsOpen(!isOpen)}
             >
                 {currentValue || "Select an option"}
                 <svg
