@@ -2,7 +2,7 @@ import * as api from "@/api/CVMaker";
 
 import * as Utils from "@/app/Utils";
 
-class CVMakerImpl implements api.CVMaker {
+export default class Impl implements api.CVMaker {
 
     public __setPDFUrl?: ((url: string | null) => void);
 
@@ -20,7 +20,3 @@ class CVMakerImpl implements api.CVMaker {
         this.renderCallback = callback;
     }
 }
-
-const impl = new CVMakerImpl();
-
-export default impl;

@@ -1,5 +1,5 @@
 export interface LayoutProps {
-    children: React.ReactNode;
+    children?: React.ReactNode;
     alignX?: "left" | "center" | "right";
     alignY?: "top" | "center" | "bottom";
 }

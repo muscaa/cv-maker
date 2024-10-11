@@ -1,4 +1,5 @@
 import * as api from "@/api/CVMaker";
+import impl from "@/api/CVMakerImpl";
 
 import React from "react";
 
@@ -14,48 +15,36 @@ import Dropdown from "@/app/components/Dropdown";
 import InputField from "@/app/components/InputField";
 import InputArea from "@/app/components/InputArea";
 
-class CVMakerUIImpl implements api.UI {
+export default class UIImpl implements api.UI {
 
-    __components?: React.ReactNode[];
+    public __components?: React.ReactNode[];
 
     // layout
     block(callback: (ui: api.UI) => void, props?: api.UILayout): void {
-        const ui = new CVMakerUIImpl();
-        ui.__components = [];
-        callback(ui);
+        const ui = impl.createUI(callback);
 
         this.__components?.push(React.createElement(Layout.Block, {
-            children: ui.__components,
-
             alignX: props?.alignX,
             alignY: props?.alignY,
-        }));
+        }, ui.__components));
     }
 
     rows(callback: (ui: api.UI) => void, props?: api.UILayout): void {
-        const ui = new CVMakerUIImpl();
-        ui.__components = [];
-        callback(ui);
+        const ui = impl.createUI(callback);
 
         this.__components?.push(React.createElement(Layout.Rows, {
-            children: ui.__components,
-            
             alignX: props?.alignX,
             alignY: props?.alignY,
-        }));
+        }, ui.__components));
     }
 
     cols(callback: (ui: api.UI) => void, props?: api.UILayout): void {
-        const ui = new CVMakerUIImpl();
-        ui.__components = [];
-        callback(ui);
+        const ui = impl.createUI(callback);
 
         this.__components?.push(React.createElement(Layout.Cols, {
-            children: ui.__components,
-            
             alignX: props?.alignX,
             alignY: props?.alignY,
-        }));
+        }, ui.__components));
     }
 
     // components
@@ -130,7 +119,3 @@ class CVMakerUIImpl implements api.UI {
         }));
     }
 }
-
-const impl = new CVMakerUIImpl();
-
-export default impl;

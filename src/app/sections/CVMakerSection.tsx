@@ -1,14 +1,11 @@
 import impl from "@/api/CVMakerImpl";
 
 export default function CVMakerSection() {
-    const components: React.ReactNode[] = [];
-
-    impl.ui.__components = components;
-    impl.main.renderCallback?.(impl.ui);
+    const ui = impl.createUI(impl.main.renderCallback!);
 
     return (
         <section>
-            {components}
+            {ui.__components}
         </section>
     );
 }

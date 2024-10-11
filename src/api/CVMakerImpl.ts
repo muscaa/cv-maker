@@ -1,9 +1,19 @@
-import main from "./impl/cvmaker/CVMakerImpl";
-import ui from "./impl/cvmaker/CVMakerUIImpl";
+import * as api from "@/api/CVMaker";
 
-const exports = {
-    main,
-    ui
+import Impl from "./impl/cvmaker/Impl";
+import UIImpl from "./impl/cvmaker/UIImpl";
+
+const impl = new Impl();
+
+function createUI(callback: (ui: api.UI) => void): UIImpl {
+    const ui = new UIImpl();
+    ui.__components = [];
+    callback(ui);
+    
+    return ui;
+}
+
+export default {
+    main: impl,
+    createUI,
 };
-
-export default exports;
