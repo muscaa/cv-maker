@@ -1,12 +1,15 @@
 import * as api from "@/api/CVMaker";
+import impl from "@/api/CVMakerImpl";
 
 import * as Utils from "@/app/Utils";
+import * as UIImpl from "./UIImpl";
 
-export default class Impl implements api.CVMaker {
+export class Impl implements api.CVMaker {
 
-    public __setPDFUrl?: ((url: string | null) => void);
+    __setPDFUrl?: (url: string | null) => void;
+    __setComponents?: (components: React.ReactNode) => void;
 
-    public renderCallback?: (ui: api.UI) => void;
+    ui?: api.UI;
 
     setPDFUrl(url: string | null): void {
         this.__setPDFUrl?.(url);
@@ -16,7 +19,13 @@ export default class Impl implements api.CVMaker {
         return Utils.addScript(options);
     }
 
-    setRenderCallback(callback: (ui: api.UI) => void): void {
-        this.renderCallback = callback;
+    setUI(ui: api.UI): void {
+        ui.ui = impl.ui;
+
+        this.ui = ui;
+    }
+
+    updateUI(): void {
+        this.__setComponents?.(UIImpl.renderChildren(this.ui!.render()));
     }
 }

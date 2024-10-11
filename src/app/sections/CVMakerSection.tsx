@@ -1,11 +1,18 @@
 import impl from "@/api/CVMakerImpl";
+import * as UIImpl from "@/api/impl/cvmaker/UIImpl";
+
+import { useState } from "react";
 
 export default function CVMakerSection() {
-    const ui = impl.createUI(impl.main.renderCallback);
+    if (!impl.main.ui) return <></>;
+
+    const [components, setComponents] = useState<React.ReactNode>(UIImpl.renderChildren(impl.main.ui.render()));
+    
+    impl.main.__setComponents = setComponents;
 
     return (
         <section>
-            {ui.__components}
+            {components}
         </section>
     );
 }
