@@ -17,7 +17,7 @@ export default function Slider(props: SliderProps) {
     };
 
     return (
-        <div className="flex py-1 min-w-4 size-full relative">
+        <div className="flex py-1 min-w-4 relative flex-1">
             <div
                 className="
                     w-full h-2 rounded-full

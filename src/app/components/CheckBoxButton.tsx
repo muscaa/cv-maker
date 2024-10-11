@@ -5,7 +5,7 @@ export interface CheckBoxButtonProps {
 
 export default function CheckBoxButton(props: CheckBoxButtonProps) {
     return (
-        <div className="flex relative size-full">
+        <div className="flex relative flex-1">
             <input
                 type="checkbox"
                 className="

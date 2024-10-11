@@ -34,7 +34,7 @@ export default function Dropdown(props: DropdownProps) {
     }, []);
 
     return (
-        <div ref={ref} className="relative size-full">
+        <div ref={ref} className="relative flex-1">
             <button
                 type="button"
                 className="

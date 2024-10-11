@@ -4,7 +4,7 @@ export interface TitleProps {
 
 export default function Title(props: TitleProps) {
     return (
-        <h2 className="size-full">
+        <h2 className="flex-1">
             {props.text}
         </h2>
     );

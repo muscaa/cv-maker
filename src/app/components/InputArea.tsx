@@ -10,7 +10,7 @@ export default function InputArea(props: InputAreaProps) {
                 appearance-none outline-none min-h-32 p-3 placeholder-text-2
                 bg-background-4 bg-opacity-25 rounded-md
                 border border-background-4 border-opacity-25
-                size-full
+                flex-1
             "
             placeholder={props.placeholder}
             onChange={(event) => props.onAction?.(event.target.value)}

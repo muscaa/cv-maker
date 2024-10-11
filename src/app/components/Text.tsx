@@ -4,7 +4,7 @@ export interface TextProps {
 
 export default function Text(props: TextProps) {
     return (
-        <p className="size-full flex-shrink flex-grow">
+        <p className="flex-1">
             {props.text}
         </p>
     );

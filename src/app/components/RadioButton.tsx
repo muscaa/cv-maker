@@ -6,7 +6,7 @@ export interface RadioButtonProps {
 
 export default function RadioButton(props: RadioButtonProps) {
     return (
-        <div className="flex relative size-full">
+        <div className="flex relative flex-1">
             <input
                 type="radio"
                 className="

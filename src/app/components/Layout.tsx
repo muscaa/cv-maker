@@ -15,23 +15,12 @@ const alignYs = {
     bottom: "items-end",
 };
 
-export function Min(props: LayoutProps) {
+export function Block(props: LayoutProps) {
     const alignX = props.alignX ? alignXs[props.alignX] : "";
     const alignY = props.alignY ? alignYs[props.alignY] : "";
 
     return (
-        <div className={`flex gap-2 ${alignX} ${alignY}`}>
-            {props.children}
-        </div>
-    );
-}
-
-export function Max(props: LayoutProps) {
-    const alignX = props.alignX ? alignXs[props.alignX] : "";
-    const alignY = props.alignY ? alignYs[props.alignY] : "";
-
-    return (
-        <div className={`flex size-full gap-2 ${alignX} ${alignY}`}>
+        <div className={`block gap-2 ${alignX} ${alignY}`}>
             {props.children}
         </div>
     );
@@ -42,7 +31,7 @@ export function Rows(props: LayoutProps) {
     const alignY = props.alignY ? alignYs[props.alignY] : "";
 
     return (
-        <div className={`flex flex-row size-full gap-2 ${alignX} ${alignY}`}>
+        <div className={`flex flex-row flex-1 gap-2 ${alignX} ${alignY}`}>
             {props.children}
         </div>
     );
@@ -53,7 +42,7 @@ export function Cols(props: LayoutProps) {
     const alignY = props.alignY ? alignYs[props.alignY] : "";
 
     return (
-        <div className={`flex flex-col size-full gap-2 ${alignX} ${alignY}`}>
+        <div className={`flex flex-col flex-1 gap-2 ${alignX} ${alignY}`}>
             {props.children}
         </div>
     );

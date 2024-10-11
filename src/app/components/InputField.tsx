@@ -11,7 +11,7 @@ export default function InputField(props: InputFieldProps) {
                 appearance-none outline-none p-3 placeholder-text-2
                 bg-background-4 bg-opacity-25 rounded-md
                 border border-background-4 border-opacity-25
-                size-full
+                flex-1
             "
             placeholder={props.placeholder}
             onChange={(event) => props.onAction?.(event.target.value)}
