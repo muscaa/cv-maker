@@ -1,7 +1,7 @@
 import impl from "@/api/CVMakerImpl";
 
 export default function CVMakerSection() {
-    const ui = impl.createUI(impl.main.renderCallback!);
+    const ui = impl.createUI(impl.main.renderCallback);
 
     return (
         <section>

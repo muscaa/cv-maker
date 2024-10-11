@@ -5,10 +5,11 @@ import UIImpl from "./impl/cvmaker/UIImpl";
 
 const impl = new Impl();
 
-function createUI(callback: (ui: api.UI) => void): UIImpl {
-    const ui = new UIImpl();
+function createUI(callback?: (ui: api.UI) => void): UIImpl {
+    const ui: UIImpl = new UIImpl();
     ui.__components = [];
-    callback(ui);
+
+    callback?.(ui);
     
     return ui;
 }
