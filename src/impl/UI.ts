@@ -14,7 +14,13 @@ import Dropdown from "@/app/components/Dropdown";
 import InputField from "@/app/components/InputField";
 import InputArea from "@/app/components/InputArea";
 
-export function renderChildren(children: api.UIComponent[]) {
+import * as CVMaker from "./CVMaker";
+
+export function renderMain(): React.ReactNode[] {
+    return CVMaker.main.ui ? renderChildren(CVMaker.main.ui.render()) : [];
+}
+
+export function renderChildren(children: api.UIComponent[]): React.ReactNode[] {
     return children.map(child => (child.render() as NativeComponentImpl).component);
 }
 

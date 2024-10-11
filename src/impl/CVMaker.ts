@@ -1,11 +1,9 @@
 import * as api from "@/api/CVMaker";
-import impl from "@/api/CVMakerImpl";
 
 import * as Utils from "@/app/Utils";
-import * as UIImpl from "./UIImpl";
+import * as UI from "./UI";
 
-export class Impl implements api.CVMaker {
-
+export class CVMakerImpl implements api.CVMaker {
     __setPDFUrl?: (url: string | null) => void;
     __setComponents?: (components: React.ReactNode) => void;
 
@@ -20,12 +18,16 @@ export class Impl implements api.CVMaker {
     }
 
     setUI(ui: api.UI): void {
-        ui.ui = impl.ui;
+        ui.ui = nativeui;
 
         this.ui = ui;
+        this.updateUI();
     }
 
     updateUI(): void {
-        this.__setComponents?.(UIImpl.renderChildren(this.ui!.render()));
+        this.__setComponents?.(UI.renderMain());
     }
 }
+
+export const main = new CVMakerImpl();
+export const nativeui = new UI.NativeUIImpl();

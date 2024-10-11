@@ -1,14 +1,12 @@
-import impl from "@/api/CVMakerImpl";
-import * as UIImpl from "@/api/impl/cvmaker/UIImpl";
+import * as CVMaker from "@/impl/CVMaker";
+import * as UI from "@/impl/UI";
 
 import { useState } from "react";
 
 export default function CVMakerSection() {
-    if (!impl.main.ui) return <></>;
-
-    const [components, setComponents] = useState<React.ReactNode>(UIImpl.renderChildren(impl.main.ui.render()));
+    const [components, setComponents] = useState<React.ReactNode>(UI.renderMain());
     
-    impl.main.__setComponents = setComponents;
+    CVMaker.main.__setComponents = setComponents;
 
     return (
         <section>
@@ -16,14 +14,3 @@ export default function CVMakerSection() {
         </section>
     );
 }
-
-/*
-                    <Button text="Load Template Zip" onAction={async () => {
-                        const file = await Utils.loadFile(".zip");
-                        const unzipped = await Utils.readZip(file);
-                        const template = await unzipped.file("template.js")?.async("string");
-                        const script = await Utils.addScript({ text: template });
-
-                        console.log(script);
-                    }} />
-*/

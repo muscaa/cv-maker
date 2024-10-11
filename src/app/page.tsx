@@ -1,9 +1,10 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import impl from "@/api/CVMakerImpl";
-import CVMakerSection from "./sections/CVMakerSection";
+import * as CVMaker from "@/impl/CVMaker";
 
+import { useState, useEffect } from "react";
+
+import CVMakerSection from "./sections/CVMakerSection";
 import Button from "./components/Button";
 import * as Utils from "./Utils";
 
@@ -11,10 +12,10 @@ export default function Home() {
     const [pdfUrl, setPDFUrl] = useState<string | null>(null);
     
     useEffect(() => {
-        window.cvmaker = impl.main;
+        window.cvmaker = CVMaker.main;
     }, []);
 
-    impl.main.__setPDFUrl = setPDFUrl;
+    CVMaker.main.__setPDFUrl = setPDFUrl;
 
     return (
         <div className="p-10 grid grid-cols-2 gap-10 w-screen h-screen">
