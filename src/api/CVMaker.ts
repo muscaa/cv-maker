@@ -6,8 +6,6 @@ export interface CVMaker {
     addScript(options: { src?: string, text?: string }): Promise<HTMLScriptElement>;
 
     setUI(ui: UI): void;
-
-    updateUI(): void;
 }
 
 // ui
@@ -44,7 +42,7 @@ export interface NativeUI {
 export abstract class UI implements NativeUI {
     ui?: NativeUI;
 
-    abstract render(): UIComponent[];
+    abstract getComponents(): UIComponent[];
 
     // layout
     block(...children: UIComponent[]): UILayoutBlock {
@@ -101,88 +99,120 @@ export abstract class UI implements NativeUI {
     }
 }
 
-export interface NativeComponent {
-    
-}
+export interface NativeComponent {}
 
 export interface UIComponent {
-    fill?: boolean;
-
     render(): NativeComponent;
+
+    update(): this;
+
+    readonly fill: boolean;
+    setFill(fill: boolean): this;
 }
 
 export interface UILayout extends UIComponent {
-    children: UIComponent[];
+    readonly children: UIComponent[];
+    setChildren(children: UIComponent[]): this;
 }
 
-export interface UILayoutBlock extends UILayout {
-
-}
+export interface UILayoutBlock extends UILayout {}
 
 export interface UILayoutFlex extends UILayout {
-    alignX?: "left" | "center" | "right";
-    alignY?: "top" | "center" | "bottom";
+    readonly alignX: "left" | "center" | "right" | "between" | "around" | "evenly" | null;
+    setAlignX(alignX: "left" | "center" | "right" | "between" | "around" | "evenly" | null): this;
+
+    readonly alignY: "top" | "center" | "bottom" | null;
+    setAlignY(alignY: "top" | "center" | "bottom" | null): this;
 }
 
-export interface UILayoutRows extends UILayoutFlex {
+export interface UILayoutRows extends UILayoutFlex {}
 
-}
+export interface UILayoutCols extends UILayoutFlex {}
 
-export interface UILayoutCols extends UILayoutFlex {
-
-}
-
-export interface UIEmpty extends UIComponent {
-
-}
+export interface UIEmpty extends UIComponent {}
 
 export interface UIText extends UIComponent {
-    text: string;
+    readonly text: string;
+    setText(text: string): this;
 }
 
 export interface UITitle extends UIComponent {
-    text: string;
+    readonly text: string;
+    setText(text: string): this;
 }
 
 export interface UIButton extends UIComponent {
-    text: string;
-    disabled?: boolean;
-    onAction?: () => void;
+    readonly text: string;
+    setText(text: string): this;
+
+    readonly disabled: boolean;
+    setDisabled(disabled: boolean): this;
+
+    readonly onAction: () => void;
+    setOnAction(onAction: () => void): this;
 }
 
 export interface UICheckbox extends UIComponent {
-    checked?: boolean;
-    onAction?: (checked: boolean) => void;
+    readonly checked: boolean;
+    setChecked(checked: boolean): this;
+
+    readonly onAction: (checked: boolean) => void;
+    setOnAction(onAction: (checked: boolean) => void): this;
 }
 
 export interface UIRadio extends UIComponent {
-    group: string;
-    checked?: boolean;
-    onAction?: (checked: boolean) => void;
+    readonly group: string;
+    setGroup(group: string): this;
+
+    readonly checked: boolean;
+    setChecked(checked: boolean): this;
+
+    readonly onAction: (checked: boolean) => void;
+    setOnAction(onAction: (checked: boolean) => void): this;
 }
 
 export interface UISlider extends UIComponent {
-    min: number;
-    max: number;
-    value?: number;
-    step?: number;
-    onAction?: (value: number) => void;
+    readonly min: number;
+    setMin(min: number): this;
+
+    readonly max: number;
+    setMax(max: number): this;
+
+    readonly value: number;
+    setValue(value: number): this;
+
+    readonly step: number;
+    setStep(step: number): this;
+
+    readonly onAction: (value: number) => void;
+    setOnAction(onAction: (value: number) => void): this;
 }
 
 export interface UIDropdown extends UIComponent {
-    options: string[];
-    selected?: number;
-    onAction?: (option: string, index: number) => void;
+    readonly options: string[];
+    setOptions(options: string[]): this;
+
+    readonly selected: number;
+    setSelected(selected: number): this;
+
+    readonly onAction: (option: string, index: number) => void;
+    setOnAction(onAction: (option: string, index: number) => void): this;
 }
 
 export interface UIInputField extends UIComponent {
-    placeholder?: string;
-    onAction?: (text: string) => void;
+    readonly placeholder: string;
+    setPlaceholder(placeholder: string): this;
+
+    readonly onAction: (text: string) => void;
+    setOnAction(onAction: (text: string) => void): this;
 }
 
 export interface UIInputArea extends UIComponent {
-    placeholder?: string;
-    onAction?: (text: string) => void;
+    readonly placeholder: string;
+    setPlaceholder(placeholder: string): this;
+
+    readonly onAction: (text: string) => void;
+    setOnAction(onAction: (text: string) => void): this;
 }
 
 // window

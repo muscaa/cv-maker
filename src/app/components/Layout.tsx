@@ -1,6 +1,6 @@
 export interface LayoutProps {
     children?: React.ReactNode;
-    alignX?: "left" | "center" | "right";
+    alignX?: "left" | "center" | "right" | "between" | "around" | "evenly";
     alignY?: "top" | "center" | "bottom";
 }
 
@@ -8,6 +8,10 @@ const alignXs = {
     left: "justify-start",
     center: "justify-center",
     right: "justify-end",
+
+    between: "justify-between",
+    around: "justify-around",
+    evenly: "justify-evenly",
 };
 const alignYs = {
     top: "items-start",
@@ -16,11 +20,8 @@ const alignYs = {
 };
 
 export function Block(props: LayoutProps) {
-    const alignX = props.alignX ? alignXs[props.alignX] : "";
-    const alignY = props.alignY ? alignYs[props.alignY] : "";
-
     return (
-        <div className={`block gap-2 ${alignX} ${alignY}`}>
+        <div className="block gap-2">
             {props.children}
         </div>
     );

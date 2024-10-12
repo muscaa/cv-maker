@@ -10,12 +10,11 @@ import * as Utils from "./Utils";
 
 export default function Home() {
     const [pdfUrl, setPDFUrl] = useState<string | null>(null);
+    CVMaker.main.__setPDFUrl = setPDFUrl;
     
     useEffect(() => {
         window.cvmaker = CVMaker.main;
     }, []);
-
-    CVMaker.main.__setPDFUrl = setPDFUrl;
 
     return (
         <div className="p-10 grid grid-cols-2 gap-10 w-screen h-screen">

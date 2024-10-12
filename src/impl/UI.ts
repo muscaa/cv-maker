@@ -2,27 +2,7 @@ import * as api from "@/api/CVMaker";
 
 import React from "react";
 
-import * as Layout from "@/app/components/Layout";
-import Empty from "@/app/components/Empty";
-import Text from "@/app/components/Text";
-import Title from "@/app/components/Title";
-import Button from "@/app/components/Button";
-import CheckBoxButton from "@/app/components/CheckBoxButton";
-import RadioButton from "@/app/components/RadioButton";
-import Slider from "@/app/components/Slider";
-import Dropdown from "@/app/components/Dropdown";
-import InputField from "@/app/components/InputField";
-import InputArea from "@/app/components/InputArea";
-
-import * as CVMaker from "./CVMaker";
-
-export function renderMain(): React.ReactNode[] {
-    return CVMaker.main.ui ? renderChildren(CVMaker.main.ui.render()) : [];
-}
-
-export function renderChildren(children: api.UIComponent[]): React.ReactNode[] {
-    return children.map(child => (child.render() as NativeComponentImpl).component);
-}
+import * as UIReact from "./UIReact";
 
 export class NativeUIImpl implements api.NativeUI {
     // layout
@@ -88,242 +68,370 @@ export class NativeComponentImpl implements api.NativeComponent {
     }
 }
 
-export class UILayoutBlockImpl implements api.UILayoutBlock {
+export abstract class UIComponentImpl implements api.UIComponent {
+    __setState?: (state: UIReact.Props<this>) => void;
+
+    fill: boolean = false;
+
+    abstract render(): api.NativeComponent;
+
+    update(): this {
+        this.__setState?.({
+            component: this,
+        });
+        return this;
+    }
+
+    setFill(fill: boolean): this {
+        this.fill = fill;
+        return this;
+    }
+}
+
+export abstract class UILayoutImpl extends UIComponentImpl implements api.UILayout {
     children: api.UIComponent[];
 
-    fill?: boolean;
-
     constructor(children: api.UIComponent[]) {
+        super();
         this.children = children;
+    }
+
+    abstract render(): api.NativeComponent;
+
+    setChildren(children: api.UIComponent[]): this {
+        this.children = children;
+        return this;
+    }
+}
+
+export class UILayoutBlockImpl extends UILayoutImpl implements api.UILayoutBlock {
+    constructor(children: api.UIComponent[]) {
+        super(children);
     }
     
     render(): api.NativeComponent {
-        return new NativeComponentImpl(React.createElement(Layout.Block, {}, renderChildren(this.children)));
-    }
-}
-
-export class UILayoutRowsImpl implements api.UILayoutBlock {
-    children: api.UIComponent[];
-
-    fill?: boolean;
-    alignX?: "left" | "center" | "right";
-    alignY?: "center" | "top" | "bottom";
-
-    constructor(children: api.UIComponent[]) {
-        this.children = children;
-    }
-    
-    render(): api.NativeComponent {
-        return new NativeComponentImpl(React.createElement(Layout.Rows, {
-            alignX: this.alignX,
-            alignY: this.alignY,
-        }, renderChildren(this.children)));
-    }
-}
-
-export class UILayoutColsImpl implements api.UILayoutBlock {
-    children: api.UIComponent[];
-
-    fill?: boolean;
-    alignX?: "left" | "center" | "right";
-    alignY?: "center" | "top" | "bottom";
-
-    constructor(children: api.UIComponent[]) {
-        this.children = children;
-    }
-    
-    render(): api.NativeComponent {
-        return new NativeComponentImpl(React.createElement(Layout.Cols, {
-            alignX: this.alignX,
-            alignY: this.alignY,
-        }, renderChildren(this.children)));
-    }
-}
-
-export class UIEmptyImpl implements api.UIEmpty {
-    fill?: boolean;
-
-    render(): api.NativeComponent {
-        return new NativeComponentImpl(React.createElement(Empty, {}));
-    }
-}
-
-export class UITextImpl implements api.UIText {
-    text: string;
-
-    fill?: boolean;
-
-    constructor(text: string) {
-        this.text = text;
-    }
-
-    render(): api.NativeComponent {
-        return new NativeComponentImpl(React.createElement(Text, {
-            text: this.text,
+        return new NativeComponentImpl(React.createElement(UIReact.LayoutBlock, {
+            component: this,
         }));
     }
 }
 
-export class UITitleImpl implements api.UITitle {
-    text: string;
+export abstract class UILayoutFlexImpl extends UILayoutImpl implements api.UILayoutFlex {
+    alignX: "left" | "center" | "right" | "between" | "around" | "evenly" | null = null;
+    alignY: "top" | "center" | "bottom" | null = null;
 
-    fill?: boolean;
+    abstract render(): api.NativeComponent;
 
-    constructor(text: string) {
-        this.text = text;
+    setAlignX(alignX: "left" | "center" | "right" | "between" | "around" | "evenly" | null): this {
+        this.alignX = alignX;
+        return this;
     }
 
+    setAlignY(alignY: "top" | "center" | "bottom" | null): this {
+        this.alignY = alignY;
+        return this;
+    }
+}
+
+export class UILayoutRowsImpl extends UILayoutFlexImpl implements api.UILayoutRows {
+    constructor(children: api.UIComponent[]) {
+        super(children);
+    }
+    
     render(): api.NativeComponent {
-        return new NativeComponentImpl(React.createElement(Title, {
-            text: this.text,
+        return new NativeComponentImpl(React.createElement(UIReact.LayoutRows, {
+            component: this,
         }));
     }
 }
 
-export class UIButtonImpl implements api.UIButton {
-    text: string;
+export class UILayoutColsImpl extends UILayoutFlexImpl implements api.UILayoutCols {
+    constructor(children: api.UIComponent[]) {
+        super(children);
+    }
     
-    fill?: boolean;
-    disabled?: boolean;
-    onAction?: () => void;
+    render(): api.NativeComponent {
+        return new NativeComponentImpl(React.createElement(UIReact.LayoutCols, {
+            component: this,
+        }));
+    }
+}
+
+export class UIEmptyImpl extends UIComponentImpl implements api.UIEmpty {
+    render(): api.NativeComponent {
+        return new NativeComponentImpl(React.createElement(UIReact.ComponentEmpty, {
+            component: this,
+        }));
+    }
+}
+
+export class UITextImpl extends UIComponentImpl implements api.UIText {
+    text: string;
+
+    constructor(text: string) {
+        super();
+        this.text = text;
+    }
+
+    render(): api.NativeComponent {
+        return new NativeComponentImpl(React.createElement(UIReact.ComponentText, {
+            component: this,
+        }));
+    }
+
+    setText(text: string): this {
+        this.text = text;
+        return this;
+    }
+}
+
+export class UITitleImpl extends UIComponentImpl implements api.UITitle {
+    text: string;
+
+    constructor(text: string) {
+        super();
+        this.text = text;
+    }
+
+    render(): api.NativeComponent {
+        return new NativeComponentImpl(React.createElement(UIReact.ComponentTitle, {
+            component: this,
+        }));
+    }
+
+    setText(text: string): this {
+        this.text = text;
+        return this;
+    }
+}
+
+export class UIButtonImpl extends UIComponentImpl implements api.UIButton {
+    text: string;
+    disabled: boolean;
+    onAction: () => void;
 
     constructor(text: string, disabled?: boolean, onAction?: () => void) {
+        super();
         this.text = text;
-        this.disabled = disabled;
-        this.onAction = onAction;
+        this.disabled = disabled ?? false;
+        this.onAction = onAction ?? (() => {});
     }
 
     render(): api.NativeComponent {
-        return new NativeComponentImpl(React.createElement(Button, {
-            text: this.text,
-            disabled: this.disabled,
-            onAction: this.onAction,
+        return new NativeComponentImpl(React.createElement(UIReact.ComponentButton, {
+            component: this,
         }));
+    }
+
+    setText(text: string): this {
+        this.text = text;
+        return this;
+    }
+
+    setDisabled(disabled: boolean): this {
+        this.disabled = disabled;
+        return this;
+    }
+
+    setOnAction(onAction: () => void): this {
+        this.onAction = onAction;
+        return this;
     }
 }
 
-export class UICheckboxImpl implements api.UICheckbox {
-    fill?: boolean;
-    checked?: boolean;
-    onAction?: (checked: boolean) => void;
+export class UICheckboxImpl extends UIComponentImpl implements api.UICheckbox {
+    checked: boolean;
+    onAction: (checked: boolean) => void;
 
     constructor(checked?: boolean, onAction?: (checked: boolean) => void) {
-        this.checked = checked;
-        this.onAction = onAction;
+        super();
+        this.checked = checked ?? false;
+        this.onAction = onAction ?? (() => {});
     }
 
     render(): api.NativeComponent {
-        return new NativeComponentImpl(React.createElement(CheckBoxButton, {
-            checked: this.checked,
-            onAction: this.onAction,
+        return new NativeComponentImpl(React.createElement(UIReact.ComponentCheckbox, {
+            component: this,
         }));
+    }
+
+    setChecked(checked: boolean): this {
+        this.checked = checked;
+        return this;
+    }
+
+    setOnAction(onAction: (checked: boolean) => void): this {
+        this.onAction = onAction;
+        return this;
     }
 }
 
-export class UIRadioImpl implements api.UIRadio {
+export class UIRadioImpl extends UIComponentImpl implements api.UIRadio {
     group: string;
-
-    fill?: boolean;
-    checked?: boolean;
-    onAction?: (checked: boolean) => void;
+    checked: boolean;
+    onAction: (checked: boolean) => void;
 
     constructor(group: string, checked?: boolean, onAction?: (checked: boolean) => void) {
+        super();
         this.group = group;
-        this.checked = checked;
-        this.onAction = onAction;
+        this.checked = checked ?? false;
+        this.onAction = onAction ?? (() => {});
     }
 
     render(): api.NativeComponent {
-        return new NativeComponentImpl(React.createElement(RadioButton, {
-            group: this.group,
-            checked: this.checked,
-            onAction: this.onAction,
+        return new NativeComponentImpl(React.createElement(UIReact.ComponentRadio, {
+            component: this,
         }));
+    }
+
+    setGroup(group: string): this {
+        this.group = group;
+        return this;
+    }
+
+    setChecked(checked: boolean): this {
+        this.checked = checked;
+        return this;
+    }
+
+    setOnAction(onAction: (checked: boolean) => void): this {
+        this.onAction = onAction;
+        return this;
     }
 }
 
-export class UISliderImpl implements api.UISlider {
+export class UISliderImpl extends UIComponentImpl implements api.UISlider {
     min: number;
     max: number;
-
-    fill?: boolean;
-    value?: number;
-    step?: number;
-    onAction?: (value: number) => void;
+    value: number;
+    step: number;
+    onAction: (value: number) => void;
 
     constructor(min: number, max: number, value?: number, step?: number, onAction?: (value: number) => void) {
+        super();
         this.min = min;
         this.max = max;
-        this.value = value;
-        this.step = step;
-        this.onAction = onAction;
+        this.value = value ?? min;
+        this.step = step ?? 1;
+        this.onAction = onAction ?? (() => {});
     }
 
     render(): api.NativeComponent {
-        return new NativeComponentImpl(React.createElement(Slider, {
-            min: this.min,
-            max: this.max,
-            value: this.value ?? this.min,
-            step: this.step,
-            onAction: this.onAction,
+        return new NativeComponentImpl(React.createElement(UIReact.ComponentSlider, {
+            component: this,
         }));
+    }
+
+    setMin(min: number): this {
+        this.min = min;
+        return this;
+    }
+
+    setMax(max: number): this {
+        this.max = max;
+        return this;
+    }
+
+    setValue(value: number): this {
+        this.value = value;
+        return this;
+    }
+
+    setStep(step: number): this {
+        this.step = step;
+        return this;
+    }
+
+    setOnAction(onAction: (value: number) => void): this {
+        this.onAction = onAction;
+        return this;
     }
 }
 
-export class UIDropdownImpl implements api.UIDropdown {
+export class UIDropdownImpl extends UIComponentImpl implements api.UIDropdown {
     options: string[];
-
-    fill?: boolean;
-    selected?: number;
-    onAction?: (option: string, index: number) => void;
+    selected: number;
+    onAction: (option: string, index: number) => void;
 
     constructor(options: string[], selected?: number, onAction?: (option: string, index: number) => void) {
+        super();
         this.options = options;
+        this.selected = selected ?? -1;
+        this.onAction = onAction ?? (() => {});
+    }
+
+    render(): api.NativeComponent {
+        return new NativeComponentImpl(React.createElement(UIReact.ComponentDropdown, {
+            component: this,
+        }));
+    }
+
+    setOptions(options: string[]): this {
+        this.options = options;
+        return this;
+    }
+
+    setSelected(selected: number): this {
         this.selected = selected;
-        this.onAction = onAction;
+        return this;
     }
 
-    render(): api.NativeComponent {
-        return new NativeComponentImpl(React.createElement(Dropdown, {
-            options: this.options,
-            selected: this.selected ?? -1,
-            onAction: this.onAction,
-        }));
+    setOnAction(onAction: (option: string, index: number) => void): this {
+        this.onAction = onAction;
+        return this;
     }
 }
 
-export class UIInputFieldImpl implements api.UIInputField {
-    fill?: boolean;
-    placeholder?: string;
-    onAction?: (text: string) => void;
+export class UIInputFieldImpl extends UIComponentImpl implements api.UIInputField {
+    placeholder: string;
+    onAction: (text: string) => void;
 
     constructor(placeholder?: string, onAction?: (text: string) => void) {
-        this.placeholder = placeholder;
-        this.onAction = onAction;
+        super();
+        this.placeholder = placeholder ?? "";
+        this.onAction = onAction ?? (() => {});
     }
 
     render(): api.NativeComponent {
-        return new NativeComponentImpl(React.createElement(InputField, {
-            placeholder: this.placeholder,
-            onAction: this.onAction,
+        return new NativeComponentImpl(React.createElement(UIReact.ComponentInputField, {
+            component: this,
         }));
+    }
+
+    setPlaceholder(placeholder: string): this {
+        this.placeholder = placeholder;
+        return this;
+    }
+
+    setOnAction(onAction: (text: string) => void): this {
+        this.onAction = onAction;
+        return this;
     }
 }
 
-export class UIInputAreaImpl implements api.UIInputArea {
-    fill?: boolean;
-    placeholder?: string;
-    onAction?: (text: string) => void;
+export class UIInputAreaImpl extends UIComponentImpl implements api.UIInputArea {
+    placeholder: string;
+    onAction: (text: string) => void;
 
     constructor(placeholder?: string, onAction?: (text: string) => void) {
-        this.placeholder = placeholder;
-        this.onAction = onAction;
+        super();
+        this.placeholder = placeholder ?? "";
+        this.onAction = onAction ?? (() => {});
     }
 
     render(): api.NativeComponent {
-        return new NativeComponentImpl(React.createElement(InputArea, {
-            placeholder: this.placeholder,
-            onAction: this.onAction,
+        return new NativeComponentImpl(React.createElement(UIReact.ComponentInputArea, {
+            component: this,
         }));
+    }
+
+    setPlaceholder(placeholder: string): this {
+        this.placeholder = placeholder;
+        return this;
+    }
+
+    setOnAction(onAction: (text: string) => void): this {
+        this.onAction = onAction;
+        return this;
     }
 }
