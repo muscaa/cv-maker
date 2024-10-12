@@ -26,7 +26,7 @@ export function renderChildren(children: api.UIComponent[]): React.ReactNode[] {
 
 export function LayoutBlock(props: Props<UI.UILayoutBlockImpl>): React.ReactNode {
     const [state, setState] = useState(props);
-    props.component.__setState = setState;
+    state.component.__setState = setState;
 
     return (
         <Layout.Block
@@ -38,7 +38,7 @@ export function LayoutBlock(props: Props<UI.UILayoutBlockImpl>): React.ReactNode
 
 export function LayoutRows(props: Props<UI.UILayoutRowsImpl>): React.ReactNode {
     const [state, setState] = useState(props);
-    props.component.__setState = setState;
+    state.component.__setState = setState;
 
     return (
         <Layout.Rows
@@ -52,7 +52,7 @@ export function LayoutRows(props: Props<UI.UILayoutRowsImpl>): React.ReactNode {
 
 export function LayoutCols(props: Props<UI.UILayoutColsImpl>): React.ReactNode {
     const [state, setState] = useState(props);
-    props.component.__setState = setState;
+    state.component.__setState = setState;
 
     return (
         <Layout.Cols
@@ -66,7 +66,7 @@ export function LayoutCols(props: Props<UI.UILayoutColsImpl>): React.ReactNode {
 
 export function ComponentEmpty(props: Props<UI.UIEmptyImpl>): React.ReactNode {
     const [state, setState] = useState(props);
-    props.component.__setState = setState;
+    state.component.__setState = setState;
 
     return (
         <Empty
@@ -76,7 +76,7 @@ export function ComponentEmpty(props: Props<UI.UIEmptyImpl>): React.ReactNode {
 
 export function ComponentText(props: Props<UI.UITextImpl>): React.ReactNode {
     const [state, setState] = useState(props);
-    props.component.__setState = setState;
+    state.component.__setState = setState;
 
     return (
         <Text
@@ -87,7 +87,7 @@ export function ComponentText(props: Props<UI.UITextImpl>): React.ReactNode {
 
 export function ComponentTitle(props: Props<UI.UITitleImpl>): React.ReactNode {
     const [state, setState] = useState(props);
-    props.component.__setState = setState;
+    state.component.__setState = setState;
 
     return (
         <Title
@@ -98,7 +98,7 @@ export function ComponentTitle(props: Props<UI.UITitleImpl>): React.ReactNode {
 
 export function ComponentButton(props: Props<UI.UIButtonImpl>): React.ReactNode {
     const [state, setState] = useState(props);
-    props.component.__setState = setState;
+    state.component.__setState = setState;
 
     return (
         <Button
@@ -111,7 +111,7 @@ export function ComponentButton(props: Props<UI.UIButtonImpl>): React.ReactNode 
 
 export function ComponentCheckbox(props: Props<UI.UICheckboxImpl>): React.ReactNode {
     const [state, setState] = useState(props);
-    props.component.__setState = setState;
+    state.component.__setState = setState;
 
     return (
         <CheckBoxButton
@@ -123,7 +123,7 @@ export function ComponentCheckbox(props: Props<UI.UICheckboxImpl>): React.ReactN
 
 export function ComponentRadio(props: Props<UI.UIRadioImpl>): React.ReactNode {
     const [state, setState] = useState(props);
-    props.component.__setState = setState;
+    state.component.__setState = setState;
 
     return (
         <RadioButton
@@ -136,7 +136,7 @@ export function ComponentRadio(props: Props<UI.UIRadioImpl>): React.ReactNode {
 
 export function ComponentSlider(props: Props<UI.UISliderImpl>): React.ReactNode {
     const [state, setState] = useState(props);
-    props.component.__setState = setState;
+    state.component.__setState = setState;
 
     return (
         <Slider
@@ -151,7 +151,7 @@ export function ComponentSlider(props: Props<UI.UISliderImpl>): React.ReactNode 
 
 export function ComponentDropdown(props: Props<UI.UIDropdownImpl>): React.ReactNode {
     const [state, setState] = useState(props);
-    props.component.__setState = setState;
+    state.component.__setState = setState;
 
     return (
         <Dropdown
@@ -164,7 +164,7 @@ export function ComponentDropdown(props: Props<UI.UIDropdownImpl>): React.ReactN
 
 export function ComponentInputField(props: Props<UI.UIInputFieldImpl>): React.ReactNode {
     const [state, setState] = useState(props);
-    props.component.__setState = setState;
+    state.component.__setState = setState;
 
     return (
         <InputField
@@ -176,7 +176,7 @@ export function ComponentInputField(props: Props<UI.UIInputFieldImpl>): React.Re
 
 export function ComponentInputArea(props: Props<UI.UIInputAreaImpl>): React.ReactNode {
     const [state, setState] = useState(props);
-    props.component.__setState = setState;
+    state.component.__setState = setState;
 
     return (
         <InputArea
