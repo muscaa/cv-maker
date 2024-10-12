@@ -8,6 +8,9 @@ import CVMakerSection from "./sections/CVMakerSection";
 import Button from "./components/Button";
 import * as Utils from "./Utils";
 
+import { useRouter, useSearchParams } from "next/navigation";
+import { useCallback } from "react";
+
 export default function Home() {
     const [pdfUrl, setPDFUrl] = useState<string | null>(null);
     CVMaker.main.__setPDFUrl = setPDFUrl;
@@ -15,6 +18,19 @@ export default function Home() {
     useEffect(() => {
         window.cvmaker = CVMaker.main;
     }, []);
+
+    const router = useRouter();
+    const searchParams = useSearchParams();
+
+    const createQueryString = useCallback(
+        (name: string, value: string) => {
+            const params = new URLSearchParams(searchParams.toString())
+            params.set(name, value)
+
+            return params.toString()
+        },
+        [searchParams]
+    );
 
     return (
         <div className="p-10 grid grid-cols-2 gap-10 w-screen h-screen">
@@ -26,6 +42,9 @@ export default function Home() {
                     const script = await Utils.addScript({ text: template });
 
                     console.log(script);
+                }} />
+                <Button text="Search" onAction={() => {
+                    router.push("/search?" + createQueryString("test", "1234"));
                 }} />
                 <div className="grid max-h-full overflow-auto">
                     <CVMakerSection />
