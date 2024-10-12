@@ -14,6 +14,14 @@ function Fallback() {
     return <p>Loading...</p>;
 }
 
+function Search() {
+    const searchParams = useSearchParams();
+
+    return (
+        <Text text={"test: " + searchParams.get("test")} />
+    );
+}
+
 export default function Home() {
     const [value, setValue] = useState<api.CVMaker | null>(null);
 
@@ -22,7 +30,6 @@ export default function Home() {
     }, []);
 
     const router = useRouter();
-    const searchParams = useSearchParams();
 
     return (
         <div className="p-10 grid grid-cols-2 gap-10 w-screen h-screen">
@@ -37,7 +44,7 @@ export default function Home() {
                 <Suspense fallback={
                     <Fallback />
                 }>
-                    <Text text={"test: " + searchParams.get("test")} />
+                    <Search />
                 </Suspense>
             </div>
         </div>

@@ -15,14 +15,7 @@ function Fallback() {
     return <p>Loading...</p>;
 }
 
-export default function Home() {
-    const [pdfUrl, setPDFUrl] = useState<string | null>(null);
-    CVMaker.main.__setPDFUrl = setPDFUrl;
-    
-    useEffect(() => {
-        window.cvmaker = CVMaker.main;
-    }, []);
-
+function Search() {
     const router = useRouter();
     const searchParams = useSearchParams();
 
@@ -35,6 +28,21 @@ export default function Home() {
         },
         [searchParams]
     );
+
+    return (
+        <Button text="Search" onAction={() => {
+            router.push("/search?" + createQueryString("test", "1234"));
+        }} />
+    );
+}
+
+export default function Home() {
+    const [pdfUrl, setPDFUrl] = useState<string | null>(null);
+    CVMaker.main.__setPDFUrl = setPDFUrl;
+    
+    useEffect(() => {
+        window.cvmaker = CVMaker.main;
+    }, []);
 
     return (
         <div className="p-10 grid grid-cols-2 gap-10 w-screen h-screen">
@@ -50,9 +58,7 @@ export default function Home() {
                 <Suspense fallback={
                     <Fallback />
                 }>
-                    <Button text="Search" onAction={() => {
-                        router.push("/search?" + createQueryString("test", "1234"));
-                    }} />
+                    <Search />
                 </Suspense>
                 <div className="grid max-h-full overflow-auto">
                     <CVMakerSection />
