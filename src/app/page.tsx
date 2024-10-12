@@ -9,7 +9,11 @@ import Button from "./components/Button";
 import * as Utils from "./Utils";
 
 import { useRouter, useSearchParams } from "next/navigation";
-import { useCallback } from "react";
+import { useCallback, Suspense } from "react";
+
+function Fallback() {
+    return <p>Loading...</p>;
+}
 
 export default function Home() {
     const [pdfUrl, setPDFUrl] = useState<string | null>(null);
@@ -43,9 +47,13 @@ export default function Home() {
 
                     console.log(script);
                 }} />
-                <Button text="Search" onAction={() => {
-                    router.push("/search?" + createQueryString("test", "1234"));
-                }} />
+                <Suspense fallback={
+                    <Fallback />
+                }>
+                    <Button text="Search" onAction={() => {
+                        router.push("/search?" + createQueryString("test", "1234"));
+                    }} />
+                </Suspense>
                 <div className="grid max-h-full overflow-auto">
                     <CVMakerSection />
                 </div>

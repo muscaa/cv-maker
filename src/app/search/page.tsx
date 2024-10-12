@@ -8,6 +8,11 @@ import Button from "../components/Button";
 import Text from "../components/Text";
 
 import { useRouter, useSearchParams } from "next/navigation";
+import { Suspense } from "react";
+
+function Fallback() {
+    return <p>Loading...</p>;
+}
 
 export default function Home() {
     const [value, setValue] = useState<api.CVMaker | null>(null);
@@ -29,7 +34,11 @@ export default function Home() {
 
             <div>
                 <Text text={"cvmaker: " + String(value)} />
-                <Text text={"test: " + searchParams.get("test")} />
+                <Suspense fallback={
+                    <Fallback />
+                }>
+                    <Text text={"test: " + searchParams.get("test")} />
+                </Suspense>
             </div>
         </div>
     );
