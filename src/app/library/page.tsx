@@ -63,7 +63,7 @@ export default function Library() {
             >
                 <div className="flex">
                     <div className="flex items-center gap-2">
-                        <IconButton icon={SVG.ArrowBack} className="size-12 text-text-2" onAction={router.back} />
+                        <IconButton icon={SVG.ArrowBack} className="w-12 h-12 text-text-2" onAction={router.back} />
                         <Divider className="h-full" />
                         <h2><span className="text-secondary font-bold">CV</span> Maker / Library</h2>
                     </div>
