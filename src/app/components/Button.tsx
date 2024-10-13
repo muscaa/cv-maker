@@ -1,5 +1,3 @@
-import React from "react";
-
 export interface ButtonProps {
     text: string;
     disabled?: boolean;

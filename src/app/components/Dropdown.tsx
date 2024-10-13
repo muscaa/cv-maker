@@ -4,6 +4,8 @@ import {
     useEffect
 } from "react";
 
+import * as SVG from "../SVG";
+
 export interface DropdownProps {
     options: string[];
     selected: number;
@@ -46,17 +48,7 @@ export default function Dropdown(props: DropdownProps) {
                 onClick={() => setIsOpen(!isOpen)}
             >
                 {currentValue || "Select an option"}
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    width="24px"
-                    height="24px"
-                    fill="none"
-                    stroke="currentColor"
-                    className={`w-5 h-5 transition-transform duration-200 ease-in-out ${isOpen ? "-rotate-180" : ""}`}
-                >
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
-                </svg>
+                <SVG.Arrow className={`w-5 h-5 transition-transform duration-200 ease-in-out ${isOpen ? "-rotate-180" : ""}`} />
             </button>
             {isOpen && (
                 <div

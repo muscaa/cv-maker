@@ -1,17 +1,21 @@
 "use client";
 
-import * as CVMaker from "@/impl/CVMaker";
+//import * as CVMaker from "@/impl/CVMaker";
 
-import { useState, useEffect } from "react";
+//import { useState, useEffect } from "react";
 
-import CVMakerSection from "./sections/CVMakerSection";
-import Button from "./components/Button";
-import * as Utils from "./Utils";
+//import CVMakerSection from "./sections/CVMakerSection";
+//import Button from "./components/Button";
+import Main from "./components/Main";
+//import * as Utils from "./Utils";
 
-import { useRouter, useSearchParams } from "next/navigation";
-import { useCallback, Suspense } from "react";
+import { useRouter/*, useSearchParams*/ } from "next/navigation";
+//import { useCallback, Suspense } from "react";
 
-function Fallback() {
+import IconSquareButton from "./components/IconSquareButton";
+import * as SVG from "./SVG";
+
+/*function Fallback() {
     return <p>Loading...</p>;
 }
 
@@ -34,17 +38,38 @@ function Search() {
             router.push("/search?" + createQueryString("test", "1234"));
         }} />
     );
-}
+}*/
 
 export default function Home() {
-    const [pdfUrl, setPDFUrl] = useState<string | null>(null);
+    /*const [pdfUrl, setPDFUrl] = useState<string | null>(null);
     CVMaker.main.__setPDFUrl = setPDFUrl;
-    
+
     useEffect(() => {
         window.cvmaker = CVMaker.main;
-    }, []);
+    }, []);*/
+
+    const router = useRouter();
 
     return (
+        <Main>
+            <h1><span className="text-secondary font-bold">CV</span> Maker</h1>
+            <div className="flex-grow"></div>
+            <div className="flex flex-wrap justify-center gap-4 lg:gap-8">
+                <IconSquareButton text="New" icon={SVG.Add} onAction={() => {
+                }} />
+                <IconSquareButton text="Library" icon={SVG.Folder} onAction={() => router.push("/library")} />
+                <IconSquareButton text="Load" icon={SVG.UploadFile} onAction={() => {
+                }} />
+                <IconSquareButton text="Settings" icon={SVG.Settings} onAction={() => {
+                }} />
+                <IconSquareButton text="Help" icon={SVG.QuestionMark} onAction={() => {
+                }} />
+            </div>
+            <div className="flex-grow"></div>
+        </Main>
+    );
+
+    /*return (
         <div className="p-10 grid grid-cols-2 gap-10 w-screen h-screen">
             <div>
                 <Button text="Load Template Zip" onAction={async () => {
@@ -60,6 +85,11 @@ export default function Home() {
                 }>
                     <Search />
                 </Suspense>
+                <div className="flex flex-col gap-2">
+                    <IconSquareButton text="Search Templates" icon={SVG.Search} onAction={() => {
+                        console.log("Search");
+                    }} />
+                </div>
                 <div className="grid max-h-full overflow-auto">
                     <CVMakerSection />
                 </div>
@@ -73,5 +103,5 @@ export default function Home() {
                 )}
             </div>
         </div>
-    );
+    );*/
 }
