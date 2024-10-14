@@ -54,16 +54,17 @@ export default function Home() {
         <Main>
             <h1><span className="text-secondary font-bold">CV</span> Maker</h1>
             <div className="flex-grow"></div>
-            <div className="flex flex-wrap justify-center gap-4 lg:gap-8">
-                <IconSquareButton text="New" icon={SVG.Add} onAction={() => {
-                }} />
-                <IconSquareButton text="Library" icon={SVG.Folder} onAction={() => router.push("/library")} />
-                <IconSquareButton text="Load" icon={SVG.UploadFile} onAction={() => {
-                }} />
-                <IconSquareButton text="Settings" icon={SVG.Settings} onAction={() => {
-                }} />
-                <IconSquareButton text="Help" icon={SVG.QuestionMark} onAction={() => {
-                }} />
+            <div className="flex flex-col gap-4 lg:gap-8">
+                <div className="flex flex-wrap justify-center gap-4 lg:gap-8">
+                    <IconSquareButton text="New Project" icon={SVG.Add} onAction={() => router.push("/new-project")} />
+                    <IconSquareButton text="Library" icon={SVG.Folder} onAction={() => router.push("/library")} />
+                    <IconSquareButton text="Load" icon={SVG.UploadFile} onAction={() => {
+                    }} />
+                </div>
+                <div className="flex flex-wrap justify-center gap-4 lg:gap-8">
+                    <IconSquareButton text="Settings" icon={SVG.Settings} onAction={() => router.push("/settings")} />
+                    <IconSquareButton text="Help" icon={SVG.QuestionMark} onAction={() => router.push("/help")} />
+                </div>
             </div>
             <div className="flex-grow"></div>
         </Main>
