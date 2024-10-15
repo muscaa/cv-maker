@@ -1,8 +1,10 @@
 import * as Utils from "./Utils";
 
-function append(key: string, value: any) {
+interface ConfigValue {}
+
+function append(key: string, value: ConfigValue) {
     const storedValue = localStorage.getItem(key);
-    const array: any[] = storedValue ? JSON.parse(storedValue) : [];
+    const array: ConfigValue[] = storedValue ? JSON.parse(storedValue) : [];
     array.push(value);
     localStorage.setItem(key, JSON.stringify(array));
 }
@@ -15,7 +17,7 @@ export interface TemplateInfo {
     tags: string[];
 }
 
-export interface Template {
+export interface Template extends ConfigValue {
     info: TemplateInfo;
     type: "base64" | "url";
     data: string;
