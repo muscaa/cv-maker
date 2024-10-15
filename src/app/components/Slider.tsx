@@ -6,6 +6,7 @@ export interface SliderProps {
     value: number;
     step?: number;
     onAction?: (value: number) => void;
+    className?: string;
 }
 
 export default function Slider(props: SliderProps) {
@@ -17,7 +18,7 @@ export default function Slider(props: SliderProps) {
     };
 
     return (
-        <div className="flex py-1 min-w-4 relative flex-1">
+        <div className={`flex py-1 min-w-4 relative ${props.className}`}>
             <div
                 className="
                     w-full h-2 rounded-full

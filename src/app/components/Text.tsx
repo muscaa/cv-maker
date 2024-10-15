@@ -1,10 +1,11 @@
 export interface TextProps {
     text: string;
+    className?: string;
 }
 
 export default function Text(props: TextProps) {
     return (
-        <p className="flex-1">
+        <p className={`${props.className}`}>
             {props.text}
         </p>
     );

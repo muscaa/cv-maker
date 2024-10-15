@@ -1,16 +1,17 @@
 export interface CheckBoxButtonProps {
     checked?: boolean;
     onAction?: (checked: boolean) => void;
+    className?: string;
 }
 
 export default function CheckBoxButton(props: CheckBoxButtonProps) {
     return (
-        <div className="flex relative flex-1">
+        <div className={`flex relative ${props.className}`}>
             <input
                 type="checkbox"
                 className="
                     appearance-none outline-none peer w-5 h-5 cursor-pointer
-                    bg-background-4 bg-opacity-25 rounded-md
+                    bg-background-4 bg-opacity-25 rounded-xl
                     border border-background-4 border-opacity-25
                     checked:bg-primary checked:border-primary
                     transition-colors duration-200 ease-in-out

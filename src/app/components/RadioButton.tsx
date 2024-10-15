@@ -2,11 +2,12 @@ export interface RadioButtonProps {
     group?: string;
     checked?: boolean;
     onAction?: (checked: boolean) => void;
+    className?: string;
 }
 
 export default function RadioButton(props: RadioButtonProps) {
     return (
-        <div className="flex relative flex-1">
+        <div className={`flex relative ${props.className}`}>
             <input
                 type="radio"
                 className="

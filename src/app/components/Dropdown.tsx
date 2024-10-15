@@ -10,6 +10,7 @@ export interface DropdownProps {
     options: string[];
     selected: number;
     onAction?: (option: string, index: number) => void;
+    className?: string;
 }
 
 export default function Dropdown(props: DropdownProps) {
@@ -36,13 +37,13 @@ export default function Dropdown(props: DropdownProps) {
     }, []);
 
     return (
-        <div ref={ref} className="relative flex-1">
+        <div ref={ref} className={`relative ${props.className}`}>
             <button
                 type="button"
                 className="
                     appearance-none outline-none w-full p-3
                     flex items-center justify-between
-                    bg-background-4 bg-opacity-25 rounded-md
+                    bg-background-4 bg-opacity-25 rounded-xl
                     border border-background-4 border-opacity-25
                 "
                 onClick={() => setIsOpen(!isOpen)}
@@ -54,7 +55,7 @@ export default function Dropdown(props: DropdownProps) {
                 <div
                     className="
                         absolute max-h-64 w-full mt-1 z-10
-                        bg-background-4 bg-opacity-25 rounded-md
+                        bg-background-4 bg-opacity-25 rounded-xl
                         border border-background-4 border-opacity-25
                         overflow-auto
                     "
@@ -65,7 +66,7 @@ export default function Dropdown(props: DropdownProps) {
                             onClick={() => handleSelect(option, index)}
                             className="
                                 w-full p-3 text-left
-                                hover:bg-primary rounded-md
+                                hover:bg-primary rounded-xl
                                 transition-colors duration-200 ease-in-out
                             "
                         >

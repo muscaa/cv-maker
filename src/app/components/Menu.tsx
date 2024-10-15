@@ -33,7 +33,7 @@ export default function Menu(props: MenuProps) {
                 </div>
             </div>
             <Divider />
-            <div className="flex flex-col max-h-full overflow-auto gap-2 p-2">
+            <div className="flex flex-col max-h-full h-full overflow-auto gap-2 p-2">
                 {props.children}
             </div>
         </div>
