@@ -55,13 +55,12 @@ export default function Home() {
             <h1><span className="text-secondary font-bold">CV</span> Maker</h1>
             <div className="flex-grow"></div>
             <div className="flex flex-col gap-4 lg:gap-8">
-                <div className="flex flex-wrap justify-center gap-4 lg:gap-8">
+                <div className="flex flex-wrap justify-center gap-4 lg:gap-8 max-w-xs sm:max-w-sm lg:max-w-xl">
                     <IconSquareButton text="New Project" icon={SVG.Add} onAction={() => router.push("/new-project")} />
                     <IconSquareButton text="Library" icon={SVG.Folder} onAction={() => router.push("/library")} />
                     <IconSquareButton text="Load" icon={SVG.UploadFile} onAction={() => {
                     }} />
-                </div>
-                <div className="flex flex-wrap justify-center gap-4 lg:gap-8">
+                    <IconSquareButton text="Templates" icon={SVG.Download} onAction={() => router.push("/templates")} />
                     <IconSquareButton text="Settings" icon={SVG.Settings} onAction={() => router.push("/settings")} />
                     <IconSquareButton text="Help" icon={SVG.QuestionMark} onAction={() => router.push("/help")} />
                 </div>

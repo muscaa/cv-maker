@@ -6,7 +6,7 @@ import Menu from "../components/Menu";
 export default function Settings() {
     return (
         <Main>
-            <Menu backPage="/" title="Settings">
+            <Menu title="Settings">
             </Menu>
         </Main>
     );

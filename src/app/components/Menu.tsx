@@ -6,7 +6,6 @@ import IconButton from "./IconButton";
 import Divider from "./Divider";
 
 export interface MenuProps {
-    backPage?: string;
     title?: string;
     titleBar?: React.ReactNode;
     children?: React.ReactNode;
@@ -26,14 +25,8 @@ export default function Menu(props: MenuProps) {
         >
             <div className="flex">
                 <div className="flex w-full items-center gap-2">
-                    <IconButton icon={SVG.ArrowBack} className="w-10 h-10 text-text-2" onAction={() => {
-                        if (!props.backPage) {
-                            router.back();
-                            return;
-                        }
-
-                        router.push(props.backPage);
-                    }} />
+                    <IconButton icon={SVG.ArrowBack} className="w-10 h-10 text-text-2" onAction={() => router.back()} />
+                    <IconButton icon={SVG.Home} className="w-10 h-10 text-text-2" onAction={() => router.push("/")} />
                     <Divider className="h-full" />
                     <h3><span className="text-secondary font-bold">CV</span> Maker / {props.title}</h3>
                     {props.titleBar}

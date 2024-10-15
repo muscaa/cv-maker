@@ -6,7 +6,7 @@ import Menu from "../components/Menu";
 export default function NewProject() {
     return (
         <Main>
-            <Menu backPage="/" title="New Project">
+            <Menu title="New Project">
             </Menu>
         </Main>
     );

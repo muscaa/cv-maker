@@ -58,7 +58,7 @@ export default function Library() {
 
     return (
         <Main>
-            <Menu backPage="/" title="Library" titleBar={<TitleBar />}>
+            <Menu title="Library" titleBar={<TitleBar />}>
                 {projects.map((project, index) => (
                     <LibraryEntry key={index} name={project.name} date={project.date} tags={project.tags} />
                 ))}

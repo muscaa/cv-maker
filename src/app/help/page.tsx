@@ -6,7 +6,7 @@ import Menu from "../components/Menu";
 export default function Help() {
     return (
         <Main>
-            <Menu backPage="/" title="Help">
+            <Menu title="Help">
             </Menu>
         </Main>
     );
