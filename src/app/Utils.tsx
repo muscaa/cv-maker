@@ -59,21 +59,9 @@ export function readFile(file: File) {
     });
 }
 
-export function readZip(file: File) {
-    return new Promise<JSZip>((resolve, reject) => {
-        const reader = new FileReader();
-        reader.onload = async (e) => {
-            const result = e.target?.result;
-        
-            if (result) {
-                const zip = new JSZip();
-                const unzipped = await zip.loadAsync(result);
+export async function readZip(arrayBuffer: ArrayBuffer) {
+    const zip = new JSZip();
+    const unzipped = await zip.loadAsync(arrayBuffer);
 
-                resolve(unzipped);
-            } else {
-                reject("Error unzipping file");
-            }
-        };
-        reader.readAsArrayBuffer(file);
-    });
+    return unzipped;
 }

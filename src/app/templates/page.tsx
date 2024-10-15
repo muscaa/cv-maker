@@ -1,32 +1,59 @@
 "use client";
 
+import * as Utils from "../Utils";
+import * as Config from "../Config";
+
 import Main from "../components/Main";
 import Menu from "../components/Menu";
 import Button from "../components/Button";
 import PanelDropdown from "../components/PanelDropdown";
 
-import { useRouter } from "next/navigation";
-
 function TitleBar() {
+    const importTemplate = async () => {
+        const file = await Utils.loadFile(".zip");
+        const reader = new FileReader();
+    
+        reader.onload = () => {
+            const arrayBuffer = reader.result as ArrayBuffer;
+            Config.importTemplate(arrayBuffer);
+        };
+        reader.onerror = (error) => {
+            console.error(error);
+        };
+    
+        reader.readAsArrayBuffer(file);
+    }
+
     return (
         <div className="flex flex-1 justify-end">
-            <div>
-                <Button text="Import" />
-            </div>
+            <Button text="Import" onAction={importTemplate} />
         </div>
     );
 }
 
+interface TemplateEntryProps {
+    template: Config.Template;
+}
+
+function TemplateEntry(props: TemplateEntryProps) {
+    return (
+        <p>{props.template.info.name}</p>
+    );
+}
+
 export default function Templates() {
-    const router = useRouter();
+    const templates = Config.getTemplates();
 
     return (
         <Main>
             <Menu title="Templates" titleBar={<TitleBar />}>
-                <PanelDropdown title="Installed" open>
+                <PanelDropdown title="Installed">
                     <div className="flex flex-col gap-2 p-2">
-                        <Button text="Search" />
-                        <Button text="Add" />
+                        {templates.length === 0 && (
+                            <p>Nothing here</p>
+                        ) || templates.map((template, index) => (
+                            <TemplateEntry key={index} template={template} />
+                        ))}
                     </div>
                 </PanelDropdown>
             </Menu>
