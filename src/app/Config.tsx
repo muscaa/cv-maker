@@ -45,3 +45,12 @@ export async function importTemplate(arrayBuffer: ArrayBuffer) {
 export function getTemplates() {
     return JSON.parse(localStorage.getItem("templates") || "[]") as Template[];
 }
+
+export interface Project extends ConfigValue {
+    name: string;
+    date: string;
+}
+
+export function getProjects() {
+    return JSON.parse(localStorage.getItem("projects") || "[]") as Project[];
+}

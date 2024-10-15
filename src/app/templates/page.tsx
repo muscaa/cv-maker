@@ -8,6 +8,8 @@ import Menu from "../components/Menu";
 import Button from "../components/Button";
 import PanelDropdown from "../components/PanelDropdown";
 
+import { useState, useEffect } from "react";
+
 function TitleBar() {
     const importTemplate = async () => {
         const file = await Utils.loadFile(".zip");
@@ -42,16 +44,22 @@ function TemplateEntry(props: TemplateEntryProps) {
 }
 
 export default function Templates() {
-    const templates = Config.getTemplates();
+    const [templates, setTemplates] = useState<Config.Template[] | null>(null);
+
+    useEffect(() => {
+        setTemplates(Config.getTemplates());
+    }, []);
 
     return (
         <Main>
             <Menu title="Templates" titleBar={<TitleBar />}>
-                <PanelDropdown title="Installed">
+                <PanelDropdown title="Browser Storage" open>
                     <div className="flex flex-col gap-2 p-2">
-                        {templates.length === 0 && (
+                        {templates === null && (
+                            <p>Loading...</p>
+                        ) || templates!.length === 0 && (
                             <p>Nothing here</p>
-                        ) || templates.map((template, index) => (
+                        ) || templates!.map((template, index) => (
                             <TemplateEntry key={index} template={template} />
                         ))}
                     </div>
