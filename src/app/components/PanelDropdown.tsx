@@ -1,6 +1,5 @@
 import {
-    useState,
-    useRef
+    useState
 } from "react";
 
 import * as SVG from "../SVG";
@@ -13,11 +12,10 @@ export interface PanelDropdownProps {
 }
 
 export default function PanelDropdown(props: PanelDropdownProps) {
-    const ref = useRef<HTMLDivElement>(null);
     const [isOpen, setIsOpen] = useState(props.open ?? false);
 
     return (
-        <div ref={ref} className={`flex flex-col ${props.className}`}>
+        <div className={`flex flex-col ${props.className}`}>
             <button
                 type="button"
                 className="

@@ -15,7 +15,7 @@ export default function IconSquareButton(props: IconSquareButtonProps) {
                 bg-background-4 bg-opacity-25 hover:bg-opacity-50 active:bg-opacity-25
                 shadow-md shadow-shadow
                 transition-colors duration-200 ease-in-out
-                size-20 sm:size-28 lg:size-40
+                size-24 sm:size-32 lg:size-40
             "
             onClick={props.onAction}
         >
