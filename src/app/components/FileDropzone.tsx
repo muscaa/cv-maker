@@ -1,16 +1,12 @@
-import { useDropzone } from "react-dropzone";
+import { useDropzone, DropzoneOptions } from "react-dropzone";
 
 export interface FileDropzoneProps {
+    options?: DropzoneOptions;
     className?: string;
 }
 
 export default function FileDropzone(props: FileDropzoneProps) {
-    const { isDragActive, isFileDialogActive, acceptedFiles, getRootProps, getInputProps } = useDropzone({
-        accept: {
-            "application/*": [ ".PNG", ".hello" ],
-        },
-        maxFiles: 1,
-    });
+    const { isDragActive, isFileDialogActive, acceptedFiles, getRootProps, getInputProps } = useDropzone(props.options);
 
     return (
         <div
@@ -22,7 +18,7 @@ export default function FileDropzone(props: FileDropzoneProps) {
                 bg-background-4 bg-opacity-25 text-text-3
                 shadow-md shadow-shadow
                 select-none cursor-pointer
-                ${isDragActive || isFileDialogActive ? "border-2 border-primary" : "border-2 border-background-4"}
+                ${isDragActive || isFileDialogActive ? "border-2 border-primary" : "border-2 border-background-4 border-opacity-25"}
                 ${props.className}
             `}
         >

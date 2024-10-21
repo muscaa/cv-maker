@@ -45,7 +45,7 @@ export default function Templates() {
         <>
             <div className="flex justify-between items-center">
                 <h3>Templates</h3>
-                <Button text="Import" onAction={() => router.push("/import-template")} />
+                <Button text="Import" onAction={() => router.push("/import-templates")} />
             </div>
             <Divider />
             <PanelDropdown title="Browser Storage">
