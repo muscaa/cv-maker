@@ -1,4 +1,4 @@
-import * as SVG from "../SVG";
+import * as SVG from "@/SVG";
 
 import { useRouter } from "next/navigation";
 

@@ -1,8 +1,8 @@
 "use client";
 
-import Main from "../components/Main";
-import Menu from "../components/Menu";
-import Tabs from "../components/Tabs";
+import Main from "@/components/Main";
+import Menu from "@/components/Menu";
+import Tabs from "@/components/Tabs";
 
 import { useState } from "react";
 

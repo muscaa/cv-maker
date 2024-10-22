@@ -1,4 +1,4 @@
-import * as SVG from "../SVG";
+import * as SVG from "@/SVG";
 
 export interface IconSquareButtonProps {
     text: string;

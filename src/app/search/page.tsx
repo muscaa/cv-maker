@@ -4,8 +4,8 @@ import * as api from "@/api/CVMaker";
 
 import { useState, useEffect } from "react";
 
-import Button from "../components/Button";
-import Text from "../components/Text";
+import Button from "@/components/Button";
+import Text from "@/components/Text";
 
 import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense } from "react";

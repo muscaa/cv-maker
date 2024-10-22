@@ -6,14 +6,14 @@
 
 //import CVMakerSection from "./sections/CVMakerSection";
 //import Button from "./components/Button";
-import Main from "./components/Main";
+import Main from "@/components/Main";
 //import * as Utils from "./Utils";
 
 import { useRouter/*, useSearchParams*/ } from "next/navigation";
 //import { useCallback, Suspense } from "react";
 
-import IconSquareButton from "./components/IconSquareButton";
-import * as SVG from "./SVG";
+import IconSquareButton from "@/components/IconSquareButton";
+import * as SVG from "@/SVG";
 
 /*function Fallback() {
     return <p>Loading...</p>;

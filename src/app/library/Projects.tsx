@@ -1,8 +1,8 @@
 import * as Config from "../Config";
 
-import Divider from "../components/Divider";
-import PanelDropdown from "../components/PanelDropdown";
-import Button from "../components/Button";
+import Divider from "@/components/Divider";
+import PanelDropdown from "@/components/PanelDropdown";
+import Button from "@/components/Button";
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";

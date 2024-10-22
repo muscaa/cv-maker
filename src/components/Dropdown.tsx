@@ -4,7 +4,7 @@ import {
     useEffect
 } from "react";
 
-import * as SVG from "../SVG";
+import * as SVG from "@/SVG";
 
 export interface DropdownProps {
     options: string[];

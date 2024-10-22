@@ -1,5 +1,5 @@
-import InputField from "../components/InputField";
-import TemplateCard from "../components/TemplateCard";
+import InputField from "@/components/InputField";
+import TemplateCard from "@/components/TemplateCard";
 
 import { useState, useEffect } from "react";
 
@@ -13,7 +13,7 @@ export default function Featured() {
         }, 1000)
 
         return () => clearTimeout(debounce)
-    }, [search])
+    }, [search]);
 
     return (
         <div className="flex flex-col gap-2 overflow-hidden">

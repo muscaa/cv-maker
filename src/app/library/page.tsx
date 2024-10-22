@@ -1,7 +1,8 @@
 "use client";
 
-import Main from "../components/Main";
-import Menu from "../components/Menu";
+import Main from "@/components/Main";
+import Menu from "@/components/Menu";
+
 import Projects from "./Projects";
 import Templates from "./Templates";
 

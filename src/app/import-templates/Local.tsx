@@ -1,4 +1,4 @@
-import FileDropzone from "../components/FileDropzone";
+import FileDropzone from "@/components/FileDropzone";
 
 export default function Local() {
     return (

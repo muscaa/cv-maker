@@ -3,10 +3,10 @@
 import * as Utils from "../Utils";
 import * as Config from "../Config";
 
-import Main from "../components/Main";
-import Menu from "../components/Menu";
-import Button from "../components/Button";
-import PanelDropdown from "../components/PanelDropdown";
+import Main from "@/components/Main";
+import Menu from "@/components/Menu";
+import Button from "@/components/Button";
+import PanelDropdown from "@/components/PanelDropdown";
 
 import { useState, useEffect } from "react";
 
