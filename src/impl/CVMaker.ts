@@ -1,6 +1,6 @@
 import * as api from "@/api/CVMaker";
 
-import * as Utils from "@/app/Utils";
+import * as Utils from "@/Utils";
 import * as UI from "./UI";
 import * as UIReact from "./UIReact";
 
