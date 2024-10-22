@@ -1,19 +1,14 @@
 import InputField from "@/components/InputField";
 import TemplateCard from "@/components/TemplateCard";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { useDebounce } from "@/Hooks";
 
 export default function Featured() {
-    const [search, setSearch] = useState("");
-    const [results, setResults] = useState<number>(0);
-
-    useEffect(() => {
-        const debounce = setTimeout(() => {
-            setResults(search.length);
-        }, 1000)
-
-        return () => clearTimeout(debounce)
-    }, [search]);
+    const [results, setResults] = useState(0);
+    const [setSearch] = useDebounce("", (value) => {
+        setResults(value.length);
+    });
 
     return (
         <div className="flex flex-col gap-2 overflow-hidden">
@@ -28,6 +23,7 @@ export default function Featured() {
                         description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam nec purus. Nullam nec purus. Nullam nec purus. Nullam nec purus. 
                         Nullam nec purus. Curabitur nec sem vel sapien venenatis maximus. Nullam nec purus. Nullam nec purus. Nullam nec purus. Nullam nec purus."
                         tags={["ATS Friendly", "Colorful", "Something", "Test"]}
+                        url="https://www.google.com"
                     />
                 ))}
             </div>

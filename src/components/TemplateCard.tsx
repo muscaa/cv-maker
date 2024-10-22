@@ -1,5 +1,10 @@
+import * as SVG from "@/SVG";
+
 import Divider from "./Divider";
 import Empty from "./Empty";
+import Tags from "./Tags";
+
+import Link from "next/link";
 
 export interface TemplateCardProps {
     name: string;
@@ -7,6 +12,7 @@ export interface TemplateCardProps {
     version: string;
     description: string;
     tags: string[];
+    url: string;
 }
 
 export default function TemplateCard(props: TemplateCardProps) {
@@ -28,20 +34,14 @@ export default function TemplateCard(props: TemplateCardProps) {
             </div>
             <h5 className="text-text-3">{props.description}</h5>
             <Empty />
-            <div className="flex flex-wrap gap-1">
-                {props.tags.map((tag, index) => (
-                    <h6
-                        key={index}
-                        className="
-                            text-secondary font-normal
-                            bg-secondary bg-opacity-10
-                            px-2 py-0.5 rounded-full
-                            flex-grow text-center
-                        "
-                    >
-                        {tag}
-                    </h6>
-                ))}
+            <div className="flex items-end gap-2">
+                <div className="size-full">
+                    <Tags tags={props.tags} className="w-full" />
+                </div>
+                <Divider className="h-full" />
+                <Link href={props.url} target="_blank">
+                    <SVG.GitHub className="size-10 hover:scale-110" />
+                </Link>
             </div>
         </div>
     );
