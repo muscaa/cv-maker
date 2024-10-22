@@ -2,17 +2,17 @@ import * as api from "@/api/CVMaker";
 
 import { useState } from "react";
 
-import * as Layout from "@/app/components/Layout";
-import Empty from "@/app/components/Empty";
-import Text from "@/app/components/Text";
-import Title from "@/app/components/Title";
-import Button from "@/app/components/Button";
-import CheckBoxButton from "@/app/components/CheckBoxButton";
-import RadioButton from "@/app/components/RadioButton";
-import Slider from "@/app/components/Slider";
-import Dropdown from "@/app/components/Dropdown";
-import InputField from "@/app/components/InputField";
-import InputArea from "@/app/components/InputArea";
+import * as Layout from "@/components/Layout";
+import Empty from "@/components/Empty";
+import Text from "@/components/Text";
+import Title from "@/components/Title";
+import Button from "@/components/Button";
+import CheckBoxButton from "@/components/CheckBoxButton";
+import RadioButton from "@/components/RadioButton";
+import Slider from "@/components/Slider";
+import Dropdown from "@/components/Dropdown";
+import InputField from "@/components/InputField";
+import InputArea from "@/components/InputArea";
 
 import * as UI from "./UI";
 
