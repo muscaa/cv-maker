@@ -6,9 +6,9 @@ export function useDebounce<T>(defaultValue: T, debounceCallback: (value: T) => 
     useEffect(() => {
         const debounce = setTimeout(() => {
             debounceCallback(state);
-        }, 1000)
+        }, 1000);
 
-        return () => clearTimeout(debounce)
+        return () => clearTimeout(debounce);
     }, [state]);
 
     return [setState];
