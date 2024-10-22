@@ -1,7 +1,7 @@
 "use client";
 
-import * as Utils from "../Utils";
-import * as Config from "../Config";
+import * as Utils from "@/Utils";
+import * as Config from "@/Config";
 
 import Main from "@/components/Main";
 import Menu from "@/components/Menu";

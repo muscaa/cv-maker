@@ -1,4 +1,4 @@
-import * as Config from "../Config";
+import * as Config from "@/Config";
 
 import Divider from "@/components/Divider";
 import PanelDropdown from "@/components/PanelDropdown";
