@@ -23,7 +23,6 @@ export default function PanelDropdown(props: PanelDropdownProps) {
                     flex items-center justify-between
                     bg-background-4 bg-opacity-25 rounded-xl
                     shadow-md shadow-shadow
-                    border-2 border-background-4 border-opacity-25
                 "
                 onClick={() => setIsOpen(!isOpen)}
             >
@@ -36,7 +35,6 @@ export default function PanelDropdown(props: PanelDropdownProps) {
                         h-full rounded-xl m-2
                         bg-background-2 bg-opacity-25
                         shadow-md shadow-shadow
-                        border-2 border-background-2 border-opacity-50
                         overflow-auto
                     "
                 >

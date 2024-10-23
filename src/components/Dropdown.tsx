@@ -45,7 +45,6 @@ export default function Dropdown(props: DropdownProps) {
                     flex items-center justify-between
                     bg-background-4 bg-opacity-25 rounded-xl
                     shadow-md shadow-shadow
-                    border-2 border-background-4 border-opacity-25
                 "
                 onClick={() => setIsOpen(!isOpen)}
             >
@@ -55,9 +54,8 @@ export default function Dropdown(props: DropdownProps) {
             {isOpen && (
                 <div
                     className="
-                        max-h-64 w-full mt-1 z-10
-                        bg-background-4 bg-opacity-25 rounded-xl
-                        border-2 border-background-4 border-opacity-25
+                        max-h-64 m-2 z-10
+                        bg-background-2 bg-opacity-25 rounded-xl
                         shadow-md shadow-shadow
                         overflow-auto
                     "
@@ -68,7 +66,9 @@ export default function Dropdown(props: DropdownProps) {
                             onClick={() => handleSelect(option, index)}
                             className="
                                 w-full p-3 text-left
-                                hover:bg-primary rounded-xl
+                                hover:bg-background-4 hover:bg-opacity-25
+                                border-2 border-transparent hover:border-primary
+                                rounded-xl
                                 transition-colors duration-200 ease-in-out
                             "
                         >

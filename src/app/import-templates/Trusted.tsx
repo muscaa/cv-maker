@@ -23,7 +23,7 @@ export default function Featured() {
                         description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam nec purus. Nullam nec purus. Nullam nec purus. Nullam nec purus. 
                         Nullam nec purus. Curabitur nec sem vel sapien venenatis maximus. Nullam nec purus. Nullam nec purus. Nullam nec purus. Nullam nec purus."
                         tags={["ATS Friendly", "Colorful", "Something", "Test"]}
-                        url="https://www.google.com"
+                        github="https://www.google.com"
                     />
                 ))}
             </div>
