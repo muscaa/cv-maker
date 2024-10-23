@@ -37,14 +37,14 @@ export default function Dropdown(props: DropdownProps) {
     }, []);
 
     return (
-        <div ref={ref} className={`relative ${props.className}`}>
+        <div ref={ref} className={`flex flex-col ${props.className}`}>
             <button
                 type="button"
                 className="
                     appearance-none outline-none w-full p-3
                     flex items-center justify-between
                     bg-background-4 bg-opacity-25 rounded-xl
-                    border border-background-4 border-opacity-25
+                    border-2 border-background-4 border-opacity-25
                 "
                 onClick={() => setIsOpen(!isOpen)}
             >
@@ -54,9 +54,9 @@ export default function Dropdown(props: DropdownProps) {
             {isOpen && (
                 <div
                     className="
-                        absolute max-h-64 w-full mt-1 z-10
+                        max-h-64 w-full mt-1 z-10
                         bg-background-4 bg-opacity-25 rounded-xl
-                        border border-background-4 border-opacity-25
+                        border-2 border-background-4 border-opacity-25
                         overflow-auto
                     "
                 >
