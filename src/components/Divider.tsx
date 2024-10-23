@@ -8,6 +8,7 @@ export default function Divider(props: DividerProps) {
             className={`
                 min-w-0.5 min-h-0.5
                 bg-text-4
+                shadow-md shadow-shadow
                 ${props.className}
             `}
         >

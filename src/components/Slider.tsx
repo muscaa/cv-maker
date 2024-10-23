@@ -23,6 +23,7 @@ export default function Slider(props: SliderProps) {
                 className="
                     w-full h-2 rounded-full
                     bg-background-4 bg-opacity-25
+                    shadow-md shadow-shadow
                 "
             >
             </div>
