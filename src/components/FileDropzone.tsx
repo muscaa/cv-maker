@@ -25,9 +25,6 @@ export default function FileDropzone(props: FileDropzoneProps) {
             <input {...getInputProps()} />
             <div className="flex flex-col">
                 <p>Drag 'n' drop files here, or click to select</p>
-                {acceptedFiles.map((file, index) => (
-                    <p key={index}>{file.name}</p>
-                ))}
             </div>
         </div>
     );

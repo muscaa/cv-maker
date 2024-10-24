@@ -13,3 +13,13 @@ export function useDebounce<T>(defaultValue: T, debounceCallback: (value: T) => 
 
     return [setState];
 }
+
+export function useStorage<T>(storageCallback: () => T[]): [T[] | null] {
+    const [state, setState] = useState<T[] | null>(null);
+
+    useEffect(() => {
+        setState(storageCallback());
+    }, []);
+
+    return [state];
+}

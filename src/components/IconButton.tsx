@@ -13,7 +13,6 @@ export default function IconButton(props: IconButtonProps) {
             className={`
                 appearance-none outline-none
                 text-text-1 hover:text-primary-light active:text-primary
-                shadow-md shadow-shadow
                 transition-colors duration-200 ease-in-out
                 size-6
                 ${props.className}

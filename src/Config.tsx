@@ -9,12 +9,17 @@ function append(key: string, value: ConfigValue) {
     localStorage.setItem(key, JSON.stringify(array));
 }
 
+//
+// TEMPLATES
+//
+
 export interface TemplateInfo {
     name: string;
     author: string;
     version: string;
     description: string;
     tags: string[];
+    github?: string;
 }
 
 export interface Template extends ConfigValue {
@@ -23,7 +28,11 @@ export interface Template extends ConfigValue {
     data: string;
 }
 
-export async function importTemplate(arrayBuffer: ArrayBuffer) {
+export function getTemplates() {
+    return JSON.parse(localStorage.getItem("templates") || "[]") as Template[];
+}
+
+export async function importTemplateFromArrayBuffer(arrayBuffer: ArrayBuffer) {
     const unzipped = await Utils.readZip(arrayBuffer);
     const templateJson = unzipped.file("template.json");
     if (!templateJson) return false;
@@ -42,8 +51,11 @@ export async function importTemplate(arrayBuffer: ArrayBuffer) {
     return true;
 }
 
-export function getTemplates() {
-    return JSON.parse(localStorage.getItem("templates") || "[]") as Template[];
+//
+// PROJECTS
+//
+
+export interface ProjectInfo {
 }
 
 export interface Project extends ConfigValue {
