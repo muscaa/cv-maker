@@ -9,15 +9,25 @@ import Link from "next/link";
 
 export interface TemplateCardProps {
     info: Config.TemplateInfo;
+    onAction?: () => void;
     className?: string;
 }
 
 export default function TemplateCard(props: TemplateCardProps) {
     return (
         <div
+            onClick={props.onAction}
             className={`
                 flex flex-col gap-1
                 bg-background-3 bg-opacity-25
+                ${
+                    props.onAction
+                        ? `
+                        hover:bg-background-4 hover:bg-opacity-25
+                        active:bg-background-3 active:bg-opacity-25
+                        cursor-pointer select-none
+                        ` : ""
+                }
                 shadow-md shadow-shadow
                 rounded-xl p-3 h-full
                 ${props.className}

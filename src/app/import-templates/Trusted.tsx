@@ -17,13 +17,15 @@ export default function Featured() {
                 {Array.from({ length: results }).map((_, index) => (
                     <TemplateCard
                         key={index}
-                        name="Template Name"
-                        author="Author Name"
-                        version="1.0.0"
-                        description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam nec purus. Nullam nec purus. Nullam nec purus. Nullam nec purus. 
-                        Nullam nec purus. Curabitur nec sem vel sapien venenatis maximus. Nullam nec purus. Nullam nec purus. Nullam nec purus. Nullam nec purus."
-                        tags={["ATS Friendly", "Colorful", "Something", "Test"]}
-                        github="https://www.google.com"
+                        info={{
+                            name: "Template Name",
+                            author: "Author Name",
+                            version: "1.0.0",
+                            description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam nec purus. Nullam nec purus. Nullam nec purus. Nullam nec purus. 
+                            Nullam nec purus. Curabitur nec sem vel sapien venenatis maximus. Nullam nec purus. Nullam nec purus. Nullam nec purus. Nullam nec purus.`,
+                            tags: ["ATS Friendly", "Colorful", "Something", "Test"],
+                            github: "https://www.google.com",
+                        }}
                     />
                 ))}
             </div>

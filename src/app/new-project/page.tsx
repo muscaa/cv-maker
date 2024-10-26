@@ -30,20 +30,14 @@ export default function NewProject() {
                         <LoadingFallback
                             values={templates}
                             onSuccess={(template, index) => (
-                                <button
+                                <TemplateCard
                                     key={index}
-                                    className="appearance-none outline-none text-left"
-                                    onClick={() => setSelectedTemplate(index)}
-                                >
-                                    <TemplateCard
-                                        className={`
-                                            hover:bg-background-4 hover:bg-opacity-25
-                                            active:bg-background-3 active:bg-opacity-25
-                                            border-2 ${selectedTemplate === index ? "border-primary" : "border-transparent"}
-                                        `}
-                                        info={template.info}
-                                    />
-                                </button>
+                                    info={template.info}
+                                    onAction={() => setSelectedTemplate(index)}
+                                    className={`
+                                        border-2 ${selectedTemplate === index ? "border-primary" : "border-transparent"}
+                                    `}
+                                />
                             )}
                         />
                     </div>
