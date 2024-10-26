@@ -2,11 +2,20 @@ import * as Utils from "./Utils";
 
 interface ConfigValue {}
 
+function get<T extends ConfigValue>(key: string) {
+    const item = localStorage.getItem(key);
+    return item ? JSON.parse(item) as T : null;
+}
+
+function set(key: string, value: ConfigValue) {
+    localStorage.setItem(key, JSON.stringify(value));
+}
+
 function append(key: string, value: ConfigValue) {
-    const storedValue = localStorage.getItem(key);
-    const array: ConfigValue[] = storedValue ? JSON.parse(storedValue) : [];
+    const array = get<ConfigValue[]>(key) ?? [];
     array.push(value);
-    localStorage.setItem(key, JSON.stringify(array));
+
+    set(key, array);
 }
 
 //
@@ -29,7 +38,7 @@ export interface Template extends ConfigValue {
 }
 
 export function getTemplates() {
-    return JSON.parse(localStorage.getItem("templates") || "[]") as Template[];
+    return get<Template[]>("templates") ?? [];
 }
 
 export async function importTemplateFromArrayBuffer(arrayBuffer: ArrayBuffer) {
@@ -39,7 +48,7 @@ export async function importTemplateFromArrayBuffer(arrayBuffer: ArrayBuffer) {
 
     const infoString = await templateJson.async("string");
     const info: TemplateInfo = JSON.parse(infoString);
-
+    
     const value: Template = {
         info: info,
         type: "base64",
@@ -56,13 +65,37 @@ export async function importTemplateFromArrayBuffer(arrayBuffer: ArrayBuffer) {
 //
 
 export interface ProjectInfo {
+    name: string;
+    scope: string;
+    autoSave: boolean;
+    date: Date;
 }
 
 export interface Project extends ConfigValue {
-    name: string;
-    date: string;
+    info: ProjectInfo;
+    template: Template;
+    data: string;
 }
 
 export function getProjects() {
-    return JSON.parse(localStorage.getItem("projects") || "[]") as Project[];
+    return get<Project[]>("projects") ?? [];
+}
+
+export function createProject(name: string, scope: string, autoSave: boolean, template: Template) {
+    const value: Project = {
+        info: {
+            name: name,
+            scope: scope,
+            autoSave: autoSave,
+            date: new Date(),
+        },
+        template: template,
+        data: "",
+    };
+
+    if (autoSave) {
+        append("projects", value);
+    }
+
+    return value;
 }
