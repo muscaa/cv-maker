@@ -21,6 +21,8 @@ export default function NewProject() {
     const [selectedTemplate, setSelectedTemplate] = useState(-1);
     const [autoSave, setAutoSave] = useState(true);
 
+    projectName; // eslint
+
     return (
         <Main>
             <Menu title="New Project">

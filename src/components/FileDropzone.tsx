@@ -6,7 +6,7 @@ export interface FileDropzoneProps {
 }
 
 export default function FileDropzone(props: FileDropzoneProps) {
-    const { isDragActive, isFileDialogActive, acceptedFiles, getRootProps, getInputProps } = useDropzone(props.options);
+    const { isDragActive, isFileDialogActive, getRootProps, getInputProps } = useDropzone(props.options);
 
     return (
         <div

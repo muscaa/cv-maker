@@ -12,7 +12,7 @@ export default function Local() {
                     accept: {
                         "": [".zip"]
                     },
-                    onDropAccepted(files, _) {
+                    onDropAccepted(files) {
                         const reader = new FileReader();
                         reader.onload = () => {
                             const arrayBuffer = reader.result as ArrayBuffer;
