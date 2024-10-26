@@ -21,8 +21,6 @@ export default function NewProject() {
     const [selectedTemplate, setSelectedTemplate] = useState(-1);
     const [autoSave, setAutoSave] = useState(true);
 
-    projectName; // eslint
-
     return (
         <Main>
             <Menu title="New Project">
@@ -51,6 +49,7 @@ export default function NewProject() {
                     </div>
                     <Button text="Create" className="flex-1" />
                 </div>
+                <p>{projectName}</p>
             </Menu>
         </Main>
     );
