@@ -13,10 +13,11 @@ import LoadingFallback from "@/components/LoadingFallback";
 
 import { useState } from "react";
 import { useStorage } from "@/Hooks";
-//import { useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
+import { useProjectStore } from "@/Store";
 
 export default function NewProject() {
-    //const router = useRouter();
+    const router = useRouter();
 
     const [templates] = useStorage(Config.getTemplates);
 
@@ -24,6 +25,8 @@ export default function NewProject() {
     const [projectScope, setProjectScope] = useState("");
     const [selectedTemplate, setSelectedTemplate] = useState(-1);
     const [autoSave, setAutoSave] = useState(true);
+
+    const { setProject } = useProjectStore();
 
     const createProject = () => {
         if (projectName === "") {
@@ -39,11 +42,12 @@ export default function NewProject() {
             return;
         }
 
-        //const template = templates![selectedTemplate];
-        //const project = Config.createProject(projectName, autoSave, template);
+        const template = templates![selectedTemplate];
+        const project = Config.createProject(projectName, projectScope, autoSave, template);
 
-        // open editor
-        //router.push(`/editor/...`);
+        setProject(project);
+
+        router.push("/editor");
     };
 
     return (

@@ -31,7 +31,7 @@ export default function ProjectCard(props: ProjectCardProps) {
             <h4>{props.info.name}</h4>
             <Divider />
             <div className="flex gap-1 text-text-4">
-                <h6>{props.info.date.toLocaleDateString()}</h6>
+                <h6>{props.info.date.toString()}</h6>
                 <Divider />
                 <h6>{props.info.scope}</h6>
             </div>
