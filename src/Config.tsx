@@ -1,19 +1,60 @@
 import * as Utils from "./Utils";
 
+import { v7 as uuid } from "uuid";
+
 interface ConfigValue {}
+
+interface ConfigObject extends ConfigValue {
+    uuid: string;
+}
+
+interface ConfigArray<T extends ConfigObject> extends ConfigValue {
+    items: T[];
+}
+
+function newArray<T extends ConfigObject>(): ConfigArray<T> {
+    return {
+        items: [],
+    };
+}
 
 function get<T extends ConfigValue>(key: string) {
     const item = localStorage.getItem(key);
     return item ? JSON.parse(item) as T : null;
 }
 
-function set(key: string, value: ConfigValue) {
+function getOr<T extends ConfigValue>(key: string, defaultValue: T) {
+    return get<T>(key) ?? defaultValue;
+}
+
+function getArray<T extends ConfigObject>(key: string) {
+    return getOr<ConfigArray<T>>(key, newArray<T>()).items;
+}
+
+function set<T extends ConfigValue>(key: string, value: T) {
     localStorage.setItem(key, JSON.stringify(value));
 }
 
-function append(key: string, value: ConfigValue) {
-    const array = get<ConfigValue[]>(key) ?? [];
-    array.push(value);
+function add<T extends ConfigObject>(key: string, value: T) {
+    const array = getOr<ConfigArray<T>>(key, newArray<T>());
+    array.items.push(value);
+
+    set(key, array);
+}
+
+function remove<T extends ConfigObject>(key: string, value: T) {
+    const array = getOr<ConfigArray<T>>(key, newArray<T>());
+    array.items = array.items.filter(item => item.uuid !== value.uuid);
+
+    set(key, array);
+}
+
+function update<T extends ConfigObject>(key: string, value: T) {
+    const array = getOr<ConfigArray<T>>(key, newArray<T>());
+    const index = array.items.findIndex(item => item.uuid === value.uuid);
+    if (index === -1) return;
+
+    array.items[index] = value;
 
     set(key, array);
 }
@@ -31,14 +72,14 @@ export interface TemplateInfo {
     github?: string;
 }
 
-export interface Template extends ConfigValue {
+export interface Template extends ConfigObject {
     info: TemplateInfo;
     type: "base64" | "url";
     data: string;
 }
 
 export function getTemplates() {
-    return get<Template[]>("templates") ?? [];
+    return getArray<Template>("templates");
 }
 
 export async function importTemplateFromArrayBuffer(arrayBuffer: ArrayBuffer) {
@@ -50,12 +91,13 @@ export async function importTemplateFromArrayBuffer(arrayBuffer: ArrayBuffer) {
     const info: TemplateInfo = JSON.parse(infoString);
     
     const value: Template = {
+        uuid: uuid(),
         info: info,
         type: "base64",
         data: Buffer.from(arrayBuffer).toString("base64"),
     };
     
-    append("templates", value);
+    add("templates", value);
 
     return true;
 }
@@ -66,35 +108,36 @@ export async function importTemplateFromArrayBuffer(arrayBuffer: ArrayBuffer) {
 
 export interface ProjectInfo {
     name: string;
-    scope: string;
+    description: string;
     autoSave: boolean;
-    date: Date;
+    date: number;
 }
 
-export interface Project extends ConfigValue {
+export interface Project extends ConfigObject {
     info: ProjectInfo;
     template: Template;
     data: string;
 }
 
 export function getProjects() {
-    return get<Project[]>("projects") ?? [];
+    return getArray<Project>("projects");
 }
 
-export function createProject(name: string, scope: string, autoSave: boolean, template: Template) {
+export function createProject(name: string, description: string, autoSave: boolean, template: Template) {
     const value: Project = {
+        uuid: uuid(),
         info: {
             name: name,
-            scope: scope,
+            description: description,
             autoSave: autoSave,
-            date: new Date(),
+            date: Date.now(),
         },
         template: template,
         data: "",
     };
 
     if (autoSave) {
-        append("projects", value);
+        add("projects", value);
     }
 
     return value;

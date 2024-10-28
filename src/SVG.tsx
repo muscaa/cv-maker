@@ -11,6 +11,8 @@ import Settings from "@/svgs/Settings";
 import Download from "@/svgs/Download";
 import Home from "@/svgs/Home";
 import GitHub from "@/svgs/GitHub";
+import Delete from "@/svgs/Delete";
+import Edit from "@/svgs/Edit";
 
 export interface Props {
     className?: string;
@@ -31,4 +33,6 @@ export {
     Download,
     Home,
     GitHub,
+    Delete,
+    Edit,
 };

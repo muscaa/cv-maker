@@ -1,4 +1,5 @@
 import * as Config from "@/Config";
+import * as SVG from "@/SVG";
 
 import Divider from "@/components/Divider";
 import PanelDropdown from "@/components/PanelDropdown";
@@ -29,6 +30,15 @@ export default function Projects() {
                             <ProjectCard
                                 key={index}
                                 info={project.info}
+                                buttons={[
+                                    {
+                                        icon: SVG.Edit,
+                                    },
+                                    {
+                                        icon: SVG.Delete,
+                                        className: "hover:text-error",
+                                    },
+                                ]}
                             />
                         )}
                     />

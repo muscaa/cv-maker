@@ -24,6 +24,12 @@ const config: Config = {
                 "secondary": "rgb(73, 254, 208)",
                 "secondary-light": "rgb(164, 252, 228)",
                 "shadow": "rgb(17, 20, 23)",
+                "error-dark": "rgb(153, 24, 37)",
+                "error": "rgb(204, 32, 49)",
+                "error-light": "rgb(250, 40, 60)",
+                "success-dark": "rgb(61, 153, 68)",
+                "success": "rgb(81, 204, 91)",
+                "success-light": "rgb(99, 249, 112)",
             },
             fontSize: {
                 "xxs": [ "0.625rem", "0.75rem" ],

@@ -1,10 +1,18 @@
 import * as Config from "@/Config";
+import * as SVG from "@/SVG";
 
 import Divider from "./Divider";
+
+export interface ProjectCardButton {
+    icon: SVG.Component;
+    onAction?: () => void;
+    className?: string;
+}
 
 export interface ProjectCardProps {
     info: Config.ProjectInfo;
     onAction?: () => void;
+    buttons?: ProjectCardButton[];
     className?: string;
 }
 
@@ -28,14 +36,28 @@ export default function ProjectCard(props: ProjectCardProps) {
                 ${props.className}
             `}
         >
-            <h4>{props.info.name}</h4>
-            <Divider />
-            <div className="flex gap-1 text-text-4">
-                <h6>{props.info.date.toString()}</h6>
-                <Divider />
-                <h6>{props.info.scope}</h6>
+            <div className="flex justify-between items-center">
+                <h4>{props.info.name}</h4>
+                <div className="flex gap-1">
+                    {props.buttons?.map((button, index) => (
+                        <button
+                            key={index}
+                            onClick={button.onAction}
+                            className={`
+                                appearance-none outline-none
+                                size-8 hover:scale-110
+                                transition-all duration-200 ease-in-out
+                                ${button.className}
+                            `}
+                        >
+                            <button.icon className="size-full" />
+                        </button>
+                    ))}
+                </div>
             </div>
-            <h5 className="text-text-3">{props.info.autoSave}</h5>
+            <Divider />
+            <h6 className="text-text-4">{new Date(props.info.date).toDateString()}</h6>
+            <h5 className="text-text-3">{props.info.description}</h5>
         </div>
     );
 }

@@ -21,19 +21,19 @@ export default function NewProject() {
 
     const [templates] = useStorage(Config.getTemplates);
 
-    const [projectName, setProjectName] = useState("");
-    const [projectScope, setProjectScope] = useState("");
+    const [name, setName] = useState("");
+    const [description, setDescription] = useState("");
     const [selectedTemplate, setSelectedTemplate] = useState(-1);
     const [autoSave, setAutoSave] = useState(true);
 
     const { setProject } = useProjectStore();
 
     const createProject = () => {
-        if (projectName === "") {
+        if (name === "") {
             alert("Project name cannot be empty");
             return;
         }
-        if (projectScope === "") {
+        if (description === "") {
             alert("Project scope cannot be empty");
             return;
         }
@@ -43,7 +43,7 @@ export default function NewProject() {
         }
 
         const template = templates![selectedTemplate];
-        const project = Config.createProject(projectName, projectScope, autoSave, template);
+        const project = Config.createProject(name, description, autoSave, template);
 
         setProject(project);
 
@@ -53,8 +53,8 @@ export default function NewProject() {
     return (
         <Main>
             <Menu title="New Project">
-                <InputField placeholder="Project Name" onAction={setProjectName} />
-                <InputField placeholder="Project Scope" onAction={setProjectScope} />
+                <InputField placeholder="Project Name" onAction={setName} />
+                <InputField placeholder="Project Description" onAction={setDescription} />
                 <PanelDropdown title={`Template: ${selectedTemplate !== -1 ? templates![selectedTemplate].info.name : "None"}`}>
                     <div className="flex flex-col gap-2 p-2 size-full max-h-96">
                         <LoadingFallback
@@ -79,7 +79,6 @@ export default function NewProject() {
                     </div>
                     <Button className="flex-1" text="Create" onAction={createProject} />
                 </div>
-                <p>{projectName}</p>
             </Menu>
         </Main>
     );

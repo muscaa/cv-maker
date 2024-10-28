@@ -7,9 +7,16 @@ import Tags from "./Tags";
 
 import Link from "next/link";
 
+export interface TemplateCardButton {
+    icon: SVG.Component;
+    onAction?: () => void;
+    className?: string;
+}
+
 export interface TemplateCardProps {
     info: Config.TemplateInfo;
     onAction?: () => void;
+    buttons?: TemplateCardButton[];
     className?: string;
 }
 
@@ -33,7 +40,24 @@ export default function TemplateCard(props: TemplateCardProps) {
                 ${props.className}
             `}
         >
-            <h4>{props.info.name}</h4>
+            <div className="flex justify-between items-center">
+                <h4>{props.info.name}</h4>
+                <div className="flex gap-1">
+                    {props.buttons?.map((button, index) => (
+                        <button
+                            key={index}
+                            onClick={button.onAction}
+                            className={`
+                                appearance-none outline-none
+                                size-8 hover:scale-110
+                                ${button.className}
+                            `}
+                        >
+                            <button.icon className="size-full" />
+                        </button>
+                    ))}
+                </div>
+            </div>
             <Divider />
             <div className="flex gap-1 text-text-4">
                 <h6>{props.info.version}</h6>
@@ -42,7 +66,7 @@ export default function TemplateCard(props: TemplateCardProps) {
             </div>
             <h5 className="text-text-3">{props.info.description}</h5>
             <Empty />
-            <div className="flex items-end gap-2 h-full">
+            <div className="flex items-end gap-1 h-full">
                 <div className="size-full">
                     <Tags tags={props.info.tags} className="w-full" />
                 </div>
@@ -50,7 +74,7 @@ export default function TemplateCard(props: TemplateCardProps) {
                 {props.info.github && (
                     <>
                         <Divider className="h-full" />
-                        <Link href={props.info.github} target="_blank" className="size-10 hover:scale-110">
+                        <Link href={props.info.github} target="_blank" className="size-8 hover:scale-110">
                             <SVG.GitHub className="size-full" />
                         </Link>
                     </>
