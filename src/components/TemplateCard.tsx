@@ -70,15 +70,10 @@ export default function TemplateCard(props: TemplateCardProps) {
                 <div className="size-full">
                     <Tags tags={props.info.tags} className="w-full" />
                 </div>
-                
-                {props.info.github && (
-                    <>
-                        <Divider className="h-full" />
-                        <Link href={props.info.github} target="_blank" className="size-8 hover:scale-110">
-                            <SVG.GitHub className="size-full" />
-                        </Link>
-                    </>
-                )}
+                <Divider className="h-full" />
+                <Link href={`https://github.com/${props.info.author}/${props.info.repo}`} target="_blank" className="size-8 hover:scale-110">
+                    <SVG.GitHub className="size-full" />
+                </Link>
             </div>
         </div>
     );

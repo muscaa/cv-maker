@@ -1,11 +1,13 @@
 import * as Utils from "./Utils";
+import * as UUID from "uuid";
 
-import { v7 as uuid } from "uuid";
+type UUID = string;
+type ConfigKey = string;
 
 interface ConfigValue {}
 
 interface ConfigObject extends ConfigValue {
-    uuid: string;
+    uuid: UUID;
 }
 
 interface ConfigArray<T extends ConfigObject> extends ConfigValue {
@@ -18,38 +20,38 @@ function newArray<T extends ConfigObject>(): ConfigArray<T> {
     };
 }
 
-function get<T extends ConfigValue>(key: string) {
+function get<T extends ConfigValue>(key: ConfigKey) {
     const item = localStorage.getItem(key);
     return item ? JSON.parse(item) as T : null;
 }
 
-function getOr<T extends ConfigValue>(key: string, defaultValue: T) {
+function getOr<T extends ConfigValue>(key: ConfigKey, defaultValue: T) {
     return get<T>(key) ?? defaultValue;
 }
 
-function getArray<T extends ConfigObject>(key: string) {
+function getArray<T extends ConfigObject>(key: ConfigKey) {
     return getOr<ConfigArray<T>>(key, newArray<T>()).items;
 }
 
-function set<T extends ConfigValue>(key: string, value: T) {
+function set<T extends ConfigValue>(key: ConfigKey, value: T) {
     localStorage.setItem(key, JSON.stringify(value));
 }
 
-function add<T extends ConfigObject>(key: string, value: T) {
+function add<T extends ConfigObject>(key: ConfigKey, value: T) {
     const array = getOr<ConfigArray<T>>(key, newArray<T>());
     array.items.push(value);
 
     set(key, array);
 }
 
-function remove<T extends ConfigObject>(key: string, value: T) {
+function remove<T extends ConfigObject>(key: ConfigKey, value: T) {
     const array = getOr<ConfigArray<T>>(key, newArray<T>());
     array.items = array.items.filter(item => item.uuid !== value.uuid);
 
     set(key, array);
 }
 
-function update<T extends ConfigObject>(key: string, value: T) {
+function update<T extends ConfigObject>(key: ConfigKey, value: T) {
     const array = getOr<ConfigArray<T>>(key, newArray<T>());
     const index = array.items.findIndex(item => item.uuid === value.uuid);
     if (index === -1) return;
@@ -60,26 +62,40 @@ function update<T extends ConfigObject>(key: string, value: T) {
 }
 
 //
+// CONSTANTS
+//
+
+const KEY_TEMPLATES: ConfigKey = "templates";
+const NAMESPACE_TEMPLATES: UUID = "10b5a181-04c3-4f40-9b8f-b30345f3c255";
+
+const KEY_PROJECTS: ConfigKey = "projects";
+
+//
 // TEMPLATES
 //
 
 export interface TemplateInfo {
-    name: string;
+    repo: string;
     author: string;
+    name: string;
     version: string;
     description: string;
     tags: string[];
-    github?: string;
+}
+
+export enum TemplateType {
+    Base64,
+    URL,
 }
 
 export interface Template extends ConfigObject {
     info: TemplateInfo;
-    type: "base64" | "url";
+    type: TemplateType;
     data: string;
 }
 
 export function getTemplates() {
-    return getArray<Template>("templates");
+    return getArray<Template>(KEY_TEMPLATES);
 }
 
 export async function importTemplateFromArrayBuffer(arrayBuffer: ArrayBuffer) {
@@ -91,13 +107,13 @@ export async function importTemplateFromArrayBuffer(arrayBuffer: ArrayBuffer) {
     const info: TemplateInfo = JSON.parse(infoString);
     
     const value: Template = {
-        uuid: uuid(),
+        uuid: UUID.v5(info.author + "@" + info.repo, NAMESPACE_TEMPLATES),
         info: info,
-        type: "base64",
+        type: TemplateType.Base64,
         data: Buffer.from(arrayBuffer).toString("base64"),
     };
     
-    add("templates", value);
+    add(KEY_TEMPLATES, value);
 
     return true;
 }
@@ -115,29 +131,29 @@ export interface ProjectInfo {
 
 export interface Project extends ConfigObject {
     info: ProjectInfo;
-    template: Template;
+    template: UUID;
     data: string;
 }
 
 export function getProjects() {
-    return getArray<Project>("projects");
+    return getArray<Project>(KEY_PROJECTS);
 }
 
 export function createProject(name: string, description: string, autoSave: boolean, template: Template) {
     const value: Project = {
-        uuid: uuid(),
+        uuid: UUID.v7(),
         info: {
             name: name,
             description: description,
             autoSave: autoSave,
             date: Date.now(),
         },
-        template: template,
+        template: template.uuid,
         data: "",
     };
 
     if (autoSave) {
-        add("projects", value);
+        add(KEY_PROJECTS, value);
     }
 
     return value;
